@@ -1,0 +1,134 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.jlabs.ordering.Splash">
+
+    <com.flaviofaria.kenburnsview.KenBurnsView
+        android:id="@+id/header_picture"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/photo1" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000"
+        android:alpha="0.6" />
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center_horizontal"
+        android:src="@drawable/icon1" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:weightSum="2"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:id="@+id/sign1"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:background="@drawable/login_buttons">
+
+            <co.jlabs.ordering.photoview.Font_TestNavigation
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/google_plus"
+                android:textSize="40sp"
+
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:textColor="#ffffff" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:text="Google"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_weight="1"
+            android:orientation="horizontal"
+            android:id="@+id/sign2"
+            android:alpha="0.7"
+            android:gravity="center"
+            android:background="@drawable/login_buttons1">
+
+            <co.jlabs.ordering.photoview.Font_TestNavigation
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/facebook"
+                android:textSize="40sp"
+
+                android:layout_marginLeft="5dp"
+                android:gravity="center_vertical"
+                android:layout_margin="5dp"
+                android:textColor="#ffffff" />
+
+            <com.facebook.login.widget.LoginButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:id="@+id/loginButton" />
+
+            <TextView
+                android:layout_width="70dp"
+                android:text="Facebook"
+                android:gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:layout_margin="5dp"
+                android:textSize="15sp"
+                android:layout_height="match_parent" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/no_net"
+        android:background="#fff">
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="80sp"
+            android:text="@string/no_nets" />
+
+        <co.jlabs.ordering.photoview.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:text="No internet connectivity found" />
+
+
+    </LinearLayout>
+
+</FrameLayout>

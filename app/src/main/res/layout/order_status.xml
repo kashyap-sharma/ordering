@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:gravity="center"
+        android:id="@+id/hide"
+        android:orientation="horizontal">
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:textStyle="bold"
+            android:id="@+id/placed"
+            android:layout_marginRight="-3dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="@string/placed" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="3dp"
+            android:layout_marginRight="-3dp"
+            android:background="#4F4F4F"
+
+            android:gravity="center" />
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:textStyle="bold"
+            android:id="@+id/ready_dispatch"
+            android:layout_marginRight="-3dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="@string/accepted" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="3dp"
+            android:layout_marginRight="-3dp"
+            android:background="#4F4F4F"
+
+            android:gravity="center" />
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:textStyle="bold"
+            android:layout_marginRight="-3dp"
+            android:gravity="center"
+            android:id="@+id/on_way"
+            android:textSize="30sp"
+            android:text="@string/bike" />
+
+        <TextView
+            android:layout_width="40dp"
+            android:layout_height="3dp"
+            android:background="#4F4F4F"
+
+            android:layout_marginRight="-3dp"
+            android:gravity="center" />
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:textStyle="bold"
+            android:id="@+id/delivered"
+            android:layout_marginRight="-3dp"
+            android:gravity="center"
+            android:textSize="30sp"
+            android:text="@string/delivered" />
+
+    </LinearLayout>
+
+    <co.jlabs.ordering.photoview.MyTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/status_current"
+        android:text="2"
+        android:layout_gravity="center" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:id="@+id/no_net_"
+        android:visibility="gone"
+        android:orientation="vertical">
+
+        <co.jlabs.ordering.photoview.MaterialFontIcons
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="80sp"
+            android:text="@string/no_nets" />
+
+        <co.jlabs.ordering.photoview.MyTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="20dp"
+            android:textSize="20sp"
+            android:text="No internet connectivity found" />
+
+    </LinearLayout>
+
+    <co.jlabs.ordering.LikeAnimation.LikeButtonView
+        android:layout_width="match_parent"
+        android:id="@+id/click"
+        android:layout_height="350dp" />
+</LinearLayout>

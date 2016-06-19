@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="90dp"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:paddingLeft="10dp"
+    android:id="@+id/relative_itemos"
+    android:paddingRight="10dp" >
+
+    <!-- Name Label -->
+
+    <TextView
+        android:id="@+id/mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Mobile: "
+        android:textColor="#5d5d5d"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Mobile: "
+        android:textColor="#5d5d5d"
+        android:textStyle="bold"
+        android:layout_below="@+id/mobile" />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Mobile: "
+        android:textColor="#5d5d5d"
+        android:textStyle="bold"
+        android:layout_below="@+id/status" />
+    <!-- Email label -->
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="left"
+        android:text="Mobile: "
+        android:textColor="#5d5d5d"
+        android:layout_below="@+id/name"
+        android:textStyle="bold"
+        android:layout_gravity="center_vertical" />
+    <co.jlabs.ordering.photoview.MaterialFontIcons
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/play"
+        android:textSize="30sp"
+        android:layout_alignParentRight="true"
+        android:gravity="center_vertical" />
+
+    <!-- Mobile number label -->
+
+
+</RelativeLayout>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/ord"
+        android:layout_below="@+id/yoi">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+
+
+
+            >
+
+            <co.jlabs.ordering.photoview.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pizza"
+                android:gravity="center_vertical"
+                android:textColor="#000"
+                android:id="@+id/orderedItem"
+                android:textSize="15sp"
+                android:padding="5dp"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1524"
+                android:layout_below="@+id/orderedItem"
+                android:textColor="#000"
+                android:layout_alignParentLeft="true"
+               android:paddingBottom="5dp"
+                android:id="@+id/money_history"
+                android:textSize="10sp"
+                android:paddingLeft="10dp"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/orderedItem"
+                android:text="date"
+                android:paddingBottom="5dp"
+                android:textSize="10sp"
+                android:id="@+id/date"
+                android:layout_toRightOf="@+id/money_history"
+                android:paddingLeft="10dp"/>
+            <co.jlabs.ordering.photoview.MyTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/status_order"
+                android:layout_alignParentRight="true"
+                android:text="Delivered"
+                android:padding="5dp"
+                android:paddingLeft="7dp"/>
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+
+
+</LinearLayout>

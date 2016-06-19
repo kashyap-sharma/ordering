@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Baking Bad</string>
+    <string name="facebook_app_id">1645956878955173</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="CurrencySign">₹</string>
+    <string name="play_services_error">Google Play services is not available.  This application will close.</string>
+    <string name="dining">&#xe613;</string>
+    <string name="user">&#xe648;</string>
+
+
+
+    <string name="add">&#xE147;</string>
+    <string name="rem">&#xE15C;</string>
+    <string name="no_nets">&#xE1DA;</string>
+    <string name="basket">&#xE8CB;</string>
+    <string name="bike">&#xE91B;</string>
+    <string name="placed">&#xE22B;</string>
+    <string name="accepted">&#xE52D;</string>
+    <string name="delivered">&#xE563;</string>
+    <string name="play">&#xE037;</string>
+    <string name="icon_back">&#xE5C4;</string>
+
+
+    <string name="integers">i</string>
+    <string name="booleans">b</string>
+    <string name="floats">c</string>
+
+
+    <string name="close">Close</string>
+
+    <string name="facebook">&#xe618;</string>
+
+    <string name="google_plus">&#xe622;</string>
+    <string name="title_activity_check_out">CheckOut</string>
+    <string name="title_activity_closed">Closed</string>
+    <string name="configuration_error">Error: the value of WEB_CLIENT_ID or SERVER_BASE_URL is not  set correctly. This will cause errors when requesting a server auth code.</string>
+
+    <string name="title_activity_main">MainAct</string>
+
+
+    <string name="support_email">team@jlabs.co</string>
+    <string name="add_cart">Add to Cart</string>
+
+
+    <string name="title_activity_envelope">EnvelopeActivity</string>
+
+    <string name="craft_description">You get to choose your own base,</string>
+    <string name="craft_description1">the sauce and then just go crazy with the toppings.</string>
+    <string name="craft_description2">If you ask us, that is how a PIZZA is had!!</string>
+
+    <string name="facebook_app_name">HelloFBSample</string>
+    <string name="cancelled">Cancelled</string>
+    <string name="permission_not_granted">Unable to perform selected action because permissions were not granted.</string>
+    <string name="ok">OK</string>
+    <string name="hello_user">Hello %1$s!</string>
+    <string name="success">Success</string>
+    <string name="successfully_posted_post">Post ID: %1$s</string>
+    <string name="error">Error</string>
+    <string name="status_update">Updating status for %1$s at %2$s</string>
+    <string name="photo_post">Photo Post</string>
+    <string name="you_picked">You picked:</string>
+    <string name="no_friends_selected">&lt;No friends selected&gt;</string>
+    <string name="no_place_selected">&lt;No place selected&gt;</string>
+    <string name="pick_seattle_place">Pick a Seattle Place</string>
+
+
+    <string name="network_edge">Network : EDGE</string>
+    <string name="network_3g">Network : 3G</string>
+    <string name="network_detecting">Network : Detecting </string>
+
+    <string name="update_speed" formatted="false">%s kbit/sec</string>
+    <string name="update_downloaded" formatted="false">Downloaded %s of %s</string>
+    <string name="update_connectionspeed" formatted="false">Connection time %s ms</string>
+
+    <string name="update_downloaded_complete" formatted="false">Downloaded %s @ %s kbit/sec</string>
+    <string name="title_activity_user_history">UserHistory</string>
+
+
+    <string name="aboutus1">Baking Bad is a cult that believes in </string>
+    <string name="aboutus2">The One Supreme Power - The PIZZA!! </string>
+    <string name="aboutus3">Ok, so we are actually </string>
+    <string name="aboutus4">a woodfired PIZZA delivery service!! </string>
+
+
+    <string name="title_activity_about_us">AboutUs</string>
+    <string name="title_activity_single_order">SingleOrderActivity</string>
+    <string name="title_activity_order_status_last">OrderStatusLast</string>
+
+</resources>

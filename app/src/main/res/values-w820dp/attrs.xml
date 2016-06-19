@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+
+    <declare-styleable name="filterCustomButtonOptions">
+        <attr name="imageText" format="string" localization="suggested" />
+        <attr name="praText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="icomTvSelecBorder">
+        <attr name="selected" format="boolean" localization="suggested" />
+    </declare-styleable>
+    <declare-styleable name="textfontstyle">
+        <attr name="fontname" format="string" localization="suggested" />
+    </declare-styleable>
+    <declare-styleable name="LoadingButton">
+        <attr name="pbText" format="string"/>
+        <attr name="pbLoadingText" format="string"/>
+        <attr name="pbTextSize" format="dimension"/>
+        <attr name="pbTextColor" format="color|reference"/>
+        <attr name="pbProgressColor" format="color|reference"/>
+    </declare-styleable>
+
+
+</resources>

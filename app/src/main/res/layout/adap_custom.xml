@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="10dp"
+    android:orientation="horizontal">
+    <TextView
+        android:id="@+id/Custom_title"
+
+
+        android:padding="7dp"
+        android:textSize="15sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <co.jlabs.ordering.Ripple.MaterialRippleLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+    app:mrl_rippleOverlay="true">
+
+        <Button
+        android:id="@+id/AddButton"
+        android:padding="10dp"
+            android:textSize="10sp"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+        android:background="@drawable/btnshp"
+        android:textColor="#fff"
+        android:text="Add"/>
+    </co.jlabs.ordering.Ripple.MaterialRippleLayout>
+</RelativeLayout>
