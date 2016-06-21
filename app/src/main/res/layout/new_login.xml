@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="co.jlabs.ordering.Splash">
 
     <com.flaviofaria.kenburnsview.KenBurnsView
@@ -16,95 +17,167 @@
         android:background="#000000"
         android:alpha="0.6" />
 
-    <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="100dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/icon1" />
 
-    <LinearLayout
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="bottom"
-        android:weightSum="2"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent">
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_margin="20dp"
+            android:id="@+id/icon"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/icon1" />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:textColorHint="#fff"
+            android:hint="Email"
+            android:textColor="#fff"
+            android:paddingLeft="15dp"
+            android:layout_marginBottom="5dp"
+            android:background="#50ffffff"
+            android:layout_below="@+id/icon"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/edit1"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:id="@+id/edit2"
+            android:inputType="textPassword"
+            android:background="#50ffffff"
+            android:paddingLeft="15dp"
+            android:hint="Password"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/edit1"
+            android:layout_height="48dp" />
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/signin"
 
+            android:textColor="#ffffff"
+            android:text="SIGN IN"
+
+            android:background="#80EAD5A3"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_below="@+id/edit2"/>
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:id="@+id/sign1"
-            android:alpha="0.7"
-            android:gravity="center"
-            android:background="@drawable/login_buttons">
-
-            <co.jlabs.ordering.photoview.Font_TestNavigation
+            android:layout_above="@+id/forgotPass"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/google_plus"
-                android:textSize="40sp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:id="@+id/sign1"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="5dp"
 
+                android:gravity="center"
+                android:background="@drawable/login_buttons">
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:materialIcon="google"
+                    app:materialIconColor="#fff"
+                    app:materialIconSize="24dp"
+                    android:id="@+id/fb_login"
+                    android:layout_margin="5dp"
+                    android:scaleType="center"
+                   />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:text="Google"
+                    android:gravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:layout_margin="5dp"
+                    android:textSize="15sp"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:id="@+id/sign2"
+                android:layout_marginRight="20dp"
                 android:layout_marginLeft="5dp"
-                android:gravity="center_vertical"
-                android:layout_margin="5dp"
-                android:textColor="#ffffff" />
-
-            <TextView
-                android:layout_width="70dp"
-                android:text="Google"
-                android:gravity="center_vertical"
-                android:textColor="#ffffff"
-                android:layout_margin="5dp"
-                android:textSize="15sp"
-                android:layout_height="match_parent" />
 
 
+                android:gravity="center"
+                android:background="@drawable/login_buttons1">
+
+                <net.steamcrafted.materialiconlib.MaterialIconView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    app:materialIcon="facebook"
+                    app:materialIconColor="#fff"
+                    app:materialIconSize="24dp"
+
+                    android:layout_margin="5dp"
+                    android:scaleType="center"
+                    />
+
+                <com.facebook.login.widget.LoginButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:id="@+id/loginButton" />
+
+                <TextView
+                    android:layout_width="70dp"
+                    android:text="Facebook"
+                    android:gravity="center_vertical"
+                    android:textColor="#ffffff"
+                    android:layout_margin="5dp"
+                    android:textSize="15sp"
+                    android:layout_height="match_parent" />
+
+
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
+        <TextView
             android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:id="@+id/sign2"
-            android:alpha="0.7"
-            android:gravity="center"
-            android:background="@drawable/login_buttons1">
-
-            <co.jlabs.ordering.photoview.Font_TestNavigation
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/facebook"
-                android:textSize="40sp"
-
-                android:layout_marginLeft="5dp"
-                android:gravity="center_vertical"
-                android:layout_margin="5dp"
-                android:textColor="#ffffff" />
-
-            <com.facebook.login.widget.LoginButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:id="@+id/loginButton" />
-
-            <TextView
-                android:layout_width="70dp"
-                android:text="Facebook"
-                android:gravity="center_vertical"
-                android:textColor="#ffffff"
-                android:layout_margin="5dp"
-                android:textSize="15sp"
-                android:layout_height="match_parent" />
+            android:layout_height="wrap_content"
+            android:text="Forgot Password?"
+            android:paddingLeft="20dp"
+            android:textStyle="bold"
+            android:textColor="#fff"
+            android:id="@+id/forgotPass"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="40dp"
+            android:layout_alignParentBottom="true"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="New here? Sign Up"
+            android:paddingRight="20dp"
+            android:textColor="#fff"
+            android:paddingBottom="40dp"
+            android:paddingLeft="10dp"
+            android:textStyle="bold"
+            android:paddingTop="10dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"/>
 
 
-        </LinearLayout>
-
-
-    </LinearLayout>
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
