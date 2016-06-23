@@ -26,6 +26,17 @@
         <attr name="fab_progress_showBackground" format="boolean" />
     </declare-styleable>
 
+    <declare-styleable name="ParallaxView">
+        <attr name="speed" format="dimension" />
+        <attr name="src" format="reference" />
+        <attr name="sceneLength" format="integer" />
+        <attr name="randomness" format="reference" />
+        <attr name="initialState" format="enum">
+            <enum name="started" value="0" />
+            <enum name="stopped" value="1" />
+        </attr>
+    </declare-styleable>
+
     <declare-styleable name="FloatingActionMenu">
         <attr name="menu_showShadow" format="boolean" />
         <attr name="menu_buttonSpacing" format="dimension" />

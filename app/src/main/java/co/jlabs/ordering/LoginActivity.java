@@ -1,5 +1,6 @@
 package co.jlabs.ordering;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.PendingIntent;
@@ -8,8 +9,10 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -331,6 +334,21 @@ public class LoginActivity extends FragmentActivity {
                         mSignInProgress = STATE_DEFAULT;
                         onSignedOut();
                         if(isNetworkAvailable()&&(!loginviafacebook)&&loginviagmail) {
+
+                            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+
+                                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.GET_ACCOUNTS);
+                                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+                                    requestPermissions(new String[] {Manifest.permission.GET_ACCOUNTS},
+                                            10);
+                                    return;
+                                }
+                            }
+                            else{
+                                email=Plus.AccountApi.getAccountName(mGoogleApiClient).toString();
+                                Log.i("email",""+email);
+                            }
+
                             Intent intent = new Intent(getApplication(), LastPage.class);
                             intent.putExtra("email", Plus.AccountApi.getAccountName(mGoogleApiClient).toString());
                             intent.putExtra("fname", currentUser.getName().getGivenName());
@@ -498,6 +516,8 @@ public class LoginActivity extends FragmentActivity {
 
     }
 
+
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -507,7 +527,23 @@ public class LoginActivity extends FragmentActivity {
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 10:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    // Permission Granted
+                    email = Plus.AccountApi.getAccountName(mGoogleApiClient);
 
+                } else {
+                    // Permission Denied
+                    Log.i("Hi","deep");
+                }
+                break;
+            default:
+                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
