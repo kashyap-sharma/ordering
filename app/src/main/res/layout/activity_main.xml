@@ -220,7 +220,7 @@
         android:layout_alignParentRight="true"
 
         android:paddingRight="10dp"
-        android:paddingTop="5dp"
+        android:paddingTop="20dp"
         android:paddingBottom="10dp"
         android:paddingLeft="5dp"
         android:elevation="6dp"

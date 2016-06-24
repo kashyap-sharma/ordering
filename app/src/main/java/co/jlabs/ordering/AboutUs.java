@@ -2,6 +2,7 @@ package co.jlabs.ordering;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
@@ -17,8 +18,9 @@ public class AboutUs extends Activity {
         setContentView(R.layout.activity_about_us);
         MaterialFontIcons back = (MaterialFontIcons) findViewById(R.id.back);
         WebView view = (WebView)findViewById(R.id.inset_web_view);
+        view.setBackgroundColor(Color.TRANSPARENT);
         String aboutus1;
-        aboutus1 = "<html><body><p align=\"justify\" style=\"font-size:15;\">";
+        aboutus1 = "<html><body><p align=\"justify\" style=\"font-size:14; color:white;\">";
         aboutus1+= "We are a woodfired PIZZA delivery service that makes your PIZZA the way you like it! (CYOP) You could either choose from our Signature section or whip up a \"bad ass\" PIZZA for yourself from the Invent section. You get to choose your own base, the sauce and then just go crazy with the toppings. If you ask us, that's how a PIZZA is had!!\n" +
                 "\n" +
                 "We also have a range of extremely gratifying sliders- so tender and juicy, that every bite is a mouthful!\n" +
