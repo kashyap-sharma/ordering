@@ -1,33 +1,30 @@
 package co.jlabs.ordering;
 
-
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.RectF;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.util.SparseArrayCompat;
 import android.support.v4.view.ViewPager;
+import android.text.Layout;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.desmond.parallaxviewpager.ParallaxFragmentPagerAdapter;
+import com.desmond.parallaxviewpager.ParallaxViewPagerBaseActivity;
 import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.nineoldandroids.view.ViewHelper;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
@@ -40,163 +37,141 @@ import java.util.Random;
 
 import co.jlabs.ordering.Classes.MyPizza;
 import co.jlabs.ordering.Classes.Order_Pizza;
-import co.jlabs.ordering.fab.FloatingActionButton;
-
-//import app.test.com.myapplication.AlphaForegroundColorSpan;
-
-
-public class MainActivity extends FragmentActivity implements ScrollTabHolder, ViewPager.OnPageChangeListener {
-
-    private static AccelerateDecelerateInterpolator sSmoothInterpolator = new AccelerateDecelerateInterpolator();
-
-    //
-    private View mHeader;
-    private ViewPager mViewPager;
-    private PagerAdapter mPagerAdapter;
+import co.jlabs.ordering.photoview.MyIconFonts;
+import co.jlabs.ordering.photoview.MyIconFonts_FAB;
+import co.jlabs.ordering.photoview.MyTextView;
+import co.jlabs.ordering.revealtor.Revealator;
 
 
-    private ImageView icon;
+public class MainActivity extends ParallaxViewPagerBaseActivity {
+
+    private View mTopImage;
+    private SmartTabLayout mNavigBar;
+    Context context;
+    // private PagerAdapter mPagerAdapter;
     private static final int EMAIL_ACTIVITY_REQUEST = 1;
-    private int mActionBarHeight;
-    private int mMinHeaderHeight;
-    private int mHeaderHeight;
-    private int mMinHeaderTranslation;
-    private ImageView mHeaderLogo;
-    private RectF mRect1 = new RectF();
-    private RectF mRect2 = new RectF();
-    private TypedValue mTypedValue = new TypedValue();
     int[] photos={R.drawable.photo1, R.drawable.phpto2,R.drawable.photo3,R.drawable.photo3};
     KenBurnsView imageView;
+    public static final String STATEKEY_THE_AWESOME_VIEW_IS_VISIBLE = "the_awesome_view_is_visible";
 
 
-
-
-
-    Context context;
-    LayoutInflater layoutInflater;
     OrderApplication app;
     MyPizza myPizza;
-    AdapterPizza _adapter;
-    ViewPager _mViewPager;
-    private SmartTabLayout mPagerSlidingTabStrip;
-    TextView current_orders;
-    LinearLayout lay_orders,toolbar;
     int allorders;
-
+    TextView current_orders;
+    LinearLayout lay_orders;
     TextView checkout,money_foot;
+
+
+
+
+
+    private RectF mRect1 = new RectF();
+    private RectF mRect2 = new RectF();
+    private ImageView icon,mHeaderLogo;
+    private View toolbar;
+
+    FloatingActionButton menu;
+    private View theAwesomeView;
+    private static AccelerateDecelerateInterpolator sSmoothInterpolator = new AccelerateDecelerateInterpolator();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        context=this;
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-        mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.min_header_height);
-        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.header_height);
-        mMinHeaderTranslation = -mMinHeaderHeight + getActionBarHeight();
         setContentView(R.layout.activity_main);
-        imageView =(KenBurnsView) findViewById(R.id.header_picture);
-        icon = (ImageView) findViewById(R.id.icon);
-        mHeaderLogo = (ImageView) findViewById(R.id.header_thumbnail);
-        mHeader = findViewById(R.id.header);
-        mPagerSlidingTabStrip = (SmartTabLayout) findViewById(R.id.tabs);
-        mViewPager = (ViewPager) findViewById(R.id.pager);
-        toolbar= (LinearLayout) findViewById(R.id.toolbar);
+        context=this;
+      final  View  maina=findViewById(R.id.maina);
 
-        FloatingActionButton history=(FloatingActionButton)findViewById(R.id.history);
-        FloatingActionButton rateus=(FloatingActionButton)findViewById(R.id.rate);
-        FloatingActionButton aboutus=(FloatingActionButton)findViewById(R.id.aboutus);
-        FloatingActionButton feedback=(FloatingActionButton)findViewById(R.id.feedback);
-        FloatingActionButton addresses=(FloatingActionButton)findViewById(R.id.addresses);
-        FloatingActionButton current=(FloatingActionButton)findViewById(R.id.current);
-
-        layoutInflater= (LayoutInflater) context.getSystemService(LAYOUT_INFLATER_SERVICE);
+        initValues();
         app = (OrderApplication) context.getApplicationContext();
-        current_orders= (TextView) findViewById(R.id.orders);
         myPizza = app.getMyPizza();
 
-        mViewPager.setOffscreenPageLimit(myPizza.type_of_pizza.size());
-        mPagerAdapter = new PagerAdapter(getSupportFragmentManager());
+        menu=(FloatingActionButton)findViewById(R.id.menu);
+        theAwesomeView = findViewById(R.id.naviga);
+        menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
-        mViewPager.setAdapter(mPagerAdapter);
-        String email = Static_Catelog.getStringProperty(context, "email");
-        String order_number = Static_Catelog.getStringProperty(context, "order_number");
-        mPagerSlidingTabStrip.setViewPager(mViewPager);
-        mPagerSlidingTabStrip.setOnPageChangeListener(this);
-        mPagerAdapter.setTabHolderScrollingContent(this);
-        _mViewPager= (ViewPager) findViewById(R.id.view_pager);
+              //  maina.setEnabled(false);
+
+                Revealator.reveal(theAwesomeView)
+                        .from(menu)
+                        .withChildsAnimation()
+                        //.withDelayBetweenChildAnimation(...)
+                        //.withChildAnimationDuration(...)
+                        //.withTranslateDuration(...)
+                        .withRevealDuration(100)
+                        //.withEndAction(...)
+                        .start();
+                maina.setClickable(false);
+            }
+        });
+        final View cross=findViewById(R.id.cross);
+
+        cross.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Revealator.unreveal(theAwesomeView)
+                        .withEndAction(new Runnable() {
+                            @Override
+                            public void run() {
+                                menu.show();
+
+                            }
+                        })
+                        .withDuration(200)
+                        .start();
+
+                maina.setClickable(true);
+
+            }
+        });
+
+        if (savedInstanceState != null && savedInstanceState.getBoolean(STATEKEY_THE_AWESOME_VIEW_IS_VISIBLE)) {
+            theAwesomeView.setVisibility(View.VISIBLE);
+            menu.setVisibility(View.INVISIBLE);
+        }
+
+
+
+
+        icon = (ImageView) findViewById(R.id.icon);
+        mHeaderLogo = (ImageView) findViewById(R.id.header_thumbnail);
+        toolbar= findViewById(R.id.toolbar);
+
+
+        mTopImage = findViewById(R.id.header_picture);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
+        mNavigBar = (SmartTabLayout) findViewById(R.id.tabs);
+        current_orders= (TextView) findViewById(R.id.orders);
+        mHeader = findViewById(R.id.header);
+        imageView = (KenBurnsView) findViewById(R.id.header_picture);
         lay_orders= (LinearLayout) findViewById(R.id.orders_layout);
         checkout= (TextView) findViewById(R.id.checkout);
         money_foot= (TextView) findViewById(R.id.money_foot);
-
-        if(order_number!=null){
-
-            current.setVisibility(View.VISIBLE);
-            current.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent emailIntent;
-
-                    emailIntent = new Intent(MainActivity.this, OrderStatusLast.class);
-
-
-                    startActivity(emailIntent);
-                }
-            });
+        app = (OrderApplication) context.getApplicationContext();
+        myPizza = app.getMyPizza();
+        app = (OrderApplication) context.getApplicationContext();
+        if (savedInstanceState != null) {
+            mTopImage.setTranslationY(savedInstanceState.getFloat(IMAGE_TRANSLATION_Y));
+            mHeader.setTranslationY(savedInstanceState.getFloat(HEADER_TRANSLATION_Y));
         }
-        if(email!=null){
-            history.setVisibility(View.VISIBLE);
-            history.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent emailIntent;
-                    emailIntent = new Intent(MainActivity.this, UserHistory.class);
-                    startActivity(emailIntent);
-                }
-            });
-        }
-        if(email!=null){
-            feedback.setVisibility(View.VISIBLE);
-            feedback.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent =new Intent(MainActivity.this, EnvelopeActivity.class);
-                    startActivityForResult(intent, EMAIL_ACTIVITY_REQUEST);
+        mViewPager.setOffscreenPageLimit(myPizza.type_of_pizza.size());
 
-                }
-            });
-        }
+        String email = Static_Catelog.getStringProperty(context, "email");
+        String order_number = Static_Catelog.getStringProperty(context, "order_number");
 
 
-        rateus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                final String appPackageName = "com.ea.gp.minions";
-                try {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + appPackageName)));
-                } catch (android.content.ActivityNotFoundException anfe) {
-                    startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + appPackageName)));
-                }
-
-            }
-        });
-        aboutus.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent emailIntent;
-                emailIntent = new Intent(MainActivity.this, AboutUs.class);
 
 
-                startActivity(emailIntent);
-                overridePendingTransition( R.anim.in_up, R.anim.out_up );
 
-            }
-        });
+        setupAdapter();
+
+
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -210,9 +185,9 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
                     s = s + pizzas.get(i).toJSON();
                     Log.i("Myapp Order Pizza", "Pizza " + i + " " + s);
                 }
-                    Static_Catelog.setStringProperty(context, "order_details", s);
-                    String m = Static_Catelog.getStringProperty(context, "order_details");
-                    Log.i("Myapp Order Pizza", "Pizsafza " + 2 + " " + m);
+                Static_Catelog.setStringProperty(context, "order_details", s);
+                String m = Static_Catelog.getStringProperty(context, "order_details");
+                Log.i("Myapp Order Pizza", "Pizsafza " + 2 + " " + m);
                 JSONArray arr = new JSONArray();
 
                 for (int i = 0; i < pizzas.size(); i++) {
@@ -221,7 +196,6 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
                 }
                 Intent emailIntent = new Intent(context, CheckOut.class);
                 startActivity(emailIntent);
-                    finish();
 
 
             }
@@ -251,28 +225,11 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
         handler.postDelayed(runnable, 3000); //for initial delay..
 
 
-    }
-
-    @Override
-    public void onPageScrollStateChanged(int arg0) {
-        // nothing
-    }
-
-    @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        // nothing
-    }
-
-    @Override
-    public void onPageSelected(int position) {
-        SparseArrayCompat<ScrollTabHolder> scrollTabHolders = mPagerAdapter.getScrollTabHolders();
-        ScrollTabHolder currentHolder = scrollTabHolders.valueAt(position);
-      //  currentHolder.adjustScroll((int) (mHeader.getHeight() + ViewHelper.getTranslationY(mHeader)),(mHeaderHeight));
 
     }
 
-    @Override
-    public void onScroll(ScrollView view, int x, int y, int oldX, int oldY, int pagePosition)
+
+    public void onScrollViewScroll(ScrollView view, int x, int y, int oldX, int oldY, int pagePosition)
     {
         if (mViewPager.getCurrentItem() == pagePosition)
         {
@@ -282,13 +239,6 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
             toolbar.setAlpha(clamp(5.0F * ratio - 4.0F, 0.0F, 1.0F));
         }
     }
-
-    @Override
-    public void adjustScroll(int scrollHeight,int headerTranslationY) {
-        // nothing
-    }
-
-
 
     public static float clamp(float value, float max, float min) {
         return Math.max(Math.min(value, min), max);
@@ -310,44 +260,58 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
         ViewHelper.setScaleY(view1, scaleY);
     }
 
-    private RectF getOnScreenRect(RectF rect, View view) {
+    private void getOnScreenRect(RectF rect, View view) {
         rect.set(view.getLeft(), view.getTop(), view.getRight(), view.getBottom());
-        return rect;
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public int getActionBarHeight() {
-        if (mActionBarHeight != 0) {
-            return mActionBarHeight;
-        }
+    @Override
+    protected void initValues() {
+        int tabHeight = getResources().getDimensionPixelSize(R.dimen.tab_height);
+        mMinHeaderHeight = getResources().getDimensionPixelSize(R.dimen.min_header_height);
+        mHeaderHeight = getResources().getDimensionPixelSize(R.dimen.header_height);
+        mMinHeaderTranslation = -mMinHeaderHeight + tabHeight;
 
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.HONEYCOMB){
-            getTheme().resolveAttribute(android.R.attr.actionBarSize, mTypedValue, true);
-        }else{
-            getTheme().resolveAttribute(R.attr.actionBarSize, mTypedValue, true);
-        }
 
-        mActionBarHeight = TypedValue.complexToDimensionPixelSize(mTypedValue.data, getResources().getDisplayMetrics());
-
-        return mActionBarHeight;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putFloat(IMAGE_TRANSLATION_Y, mTopImage.getTranslationY());
+        outState.putFloat(HEADER_TRANSLATION_Y, mHeader.getTranslationY());
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATEKEY_THE_AWESOME_VIEW_IS_VISIBLE, theAwesomeView.getVisibility() == View.VISIBLE);
+    }
 
+    @Override
+    protected void setupAdapter() {
+        if (mAdapter == null) {
+            mAdapter = new PagerAdapter(getSupportFragmentManager());
+        }
 
-    public class PagerAdapter extends FragmentPagerAdapter {
+        mViewPager.setAdapter(mAdapter);
+        mViewPager.setOffscreenPageLimit(mAdapter.getCount());
+        mNavigBar.setOnPageChangeListener(getViewPagerChangeListener());
+        mNavigBar.setViewPager(mViewPager);
+    }
 
-        private SparseArrayCompat<ScrollTabHolder> mScrollTabHolders;
-        private ScrollTabHolder mListener;
+    @Override
+    protected void scrollHeader(int scrollY) {
+        float translationY = Math.max(-scrollY, mMinHeaderTranslation);
+        mHeader.setTranslationY(translationY);
+        mTopImage.setTranslationY(-translationY / 3);
+    }
+
+    private class PagerAdapter extends ParallaxFragmentPagerAdapter {
 
         public PagerAdapter(FragmentManager fm) {
             super(fm);
-            mScrollTabHolders = new SparseArrayCompat<ScrollTabHolder>();
         }
 
-        public void setTabHolderScrollingContent(ScrollTabHolder listener) {
-            mListener = listener;
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = FragmentForMainActivity.newInstance(position);
+            return fragment;
         }
-
         @Override
         public CharSequence getPageTitle(int position) {
             return myPizza.type_of_pizza.get(position).category;
@@ -358,21 +322,8 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
             return myPizza.type_of_pizza.size();
         }
 
-        @Override
-        public Fragment getItem(int position) {
-            ScrollTabHolderFragment fragment = (ScrollTabHolderFragment) FragmentForMainActivity.newInstance(position);
-            mScrollTabHolders.put(position, fragment);
-            if (mListener != null) {
-                fragment.setScrollTabHolder(mListener);
-            }
-            return fragment;
-        }
-
-        public SparseArrayCompat<ScrollTabHolder> getScrollTabHolders() {
-            return mScrollTabHolders;
-        }
-
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -402,8 +353,6 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
             }
             Log.i("tracer", "" + finalJson);
             new Feedback(finalJson).execute();
-
-
 
         }
     }
@@ -444,6 +393,5 @@ public class MainActivity extends FragmentActivity implements ScrollTabHolder, V
         else
             lay_orders.setVisibility(View.GONE);
     }
-
 
 }

@@ -12,17 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
+
+import com.desmond.parallaxviewpager.NotifyingScrollView;
+import com.desmond.parallaxviewpager.ScrollViewFragment;
 
 import co.jlabs.ordering.Classes.MyPizza;
 import co.jlabs.ordering.Classes.Order_Pizza;
 import co.jlabs.ordering.Classes.Order_PizzaBuilder;
 
+
 /**
  * Created by JussConnect on 6/23/2015.
  */
-public class FragmentForMainActivity extends ScrollTabHolderFragment implements NotifyingScrollView.OnScrollChangedListener {
+public class FragmentForMainActivity extends ScrollViewFragment {
+
 
     private static final String ARG_POSITION = "position";
     LayoutInflater inflater;
@@ -30,14 +34,9 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
     Activity context;
     OrderApplication app;
 
-
-    private NotifyingScrollView mScrollView;
-
-
     Context mContext;
-    private TextView add_des1;
+    private  TextView add_des1;
 
-    private int mPosition;
     private CardView veg,nonveg ,ord_heise;
 
     public static Fragment newInstance(int position) {
@@ -59,8 +58,11 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View page=inflater.inflate(R.layout.pra_lay_adapter, container, false);
+        mPosition = getArguments().getInt(ARG_POSITION);
+
         mScrollView = (NotifyingScrollView) page.findViewById(R.id.scrollview);
-        mScrollView.setOnScrollChangedListener(this);
+        setScrollViewOnScrollListener();
+
         LinearLayout lv1=(LinearLayout)page.findViewById(R.id.lv1);
         LinearLayout lv2=(LinearLayout)page.findViewById(R.id.lv2);
         TextView textveg=(TextView)page.findViewById(R.id.veg_text);
@@ -75,7 +77,7 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
                 vi = inflater.inflate(R.layout.internal_item, null);
                 TextView tv = (TextView)vi.findViewById(R.id.item);
 
-                final TextView add_des1=(TextView)vi.findViewById(R.id.add_des1);
+                final  TextView add_des1=(TextView)vi.findViewById(R.id.add_des1);
 
                 tv.setText(myPizza.type_of_pizza.get(mPosition).items.get(i).name);
                 TextView base = (TextView) vi.findViewById(R.id.base_price);
@@ -121,6 +123,7 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
                             Log.i("Myapp","Hello+ "+app.getCurrentPizzaBuilder().getCurrentPizza().getTotalPrice());
                             Intent intent = new Intent(context, PopUp1st.class);
                             context.startActivityForResult(intent, 0);
+
                         }
                     }
                 });
@@ -137,12 +140,12 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
 
 
                 else{
-                vi = inflater.inflate(R.layout.internal_item, null);
-                if (mPosition==3||mPosition==5||mPosition==6){
-                    textveg.setVisibility(View.GONE);
+                    vi = inflater.inflate(R.layout.internal_item, null);
+                    if (mPosition==3||mPosition==5||mPosition==6){
+                        textveg.setVisibility(View.GONE);
 
 
-                }
+                    }
                     TextView base = (TextView) vi.findViewById(R.id.base_price);
 
                     int item_price = myPizza.type_of_pizza.get(mPosition).items.get(i).price;
@@ -158,7 +161,7 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
 
                 }
                 TextView tv = (TextView)vi.findViewById(R.id.item);
-                final TextView add_des1=(TextView)vi.findViewById(R.id.add_des1);
+                final  TextView add_des1=(TextView)vi.findViewById(R.id.add_des1);
                 tv.setText(myPizza.type_of_pizza.get(mPosition).items.get(i).name);
                 tv.setTag(mPosition);
                 vi.setTag(myPizza.type_of_pizza.get(mPosition).items.get(i).id);
@@ -173,21 +176,24 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
                         app.start_new_pizzaBuilder(new Order_PizzaBuilder().withType(idss));
                         app.getCurrentPizzaBuilder().withItem(item, myPizza.type_of_pizza.get(idss).items.get((int) v.getTag()).custom.size());
                         if (myPizza.type_of_pizza.get(idss).items.get((int) v.getTag()).simple) {
-                            if (add_des1.getText().equals("Add")) {
-                                app.getCurrentPizzaBuilder().getCurrentPizza().addToPrice(myPizza.type_of_pizza.get(idss).items.get((int) v.getTag()).price);
-                                app.order_current_pizza();
-                                add_des1.setBackgroundColor(Color.parseColor("#f26522"));
-                                add_des1.setText("Added");
+                             if (add_des1.getText().equals("Add")) {
+                                 app.getCurrentPizzaBuilder().getCurrentPizza().addToPrice(myPizza.type_of_pizza.get(idss).items.get((int) v.getTag()).price);
+                                 app.order_current_pizza();
+                                 add_des1.setBackgroundColor(Color.parseColor("#f26522"));
+
+                                 add_des1.setText("Added");
+
 //                                add_des1.setEnabled(false);
-                                add_des1.setTextColor(Color.parseColor("#ffffff"));
-                                ((MainActivity) context).updateUIforOrders();
-                            }
+                                 add_des1.setTextColor(Color.parseColor("#ffffff"));
+                                 ((MainActivity) context).updateUIforOrders();
+                             }
 
                         } else {
                             app.getCurrentPizzaBuilder().getCurrentPizza().addToPrice(myPizza.type_of_pizza.get(idss).items.get((int) v.getTag()).price);
                             Log.i("Myapp", "Hello+ " + app.getCurrentPizzaBuilder().getCurrentPizza().getTotalPrice());
                             Intent intent = new Intent(context, PopUp1st.class);
                             context.startActivityForResult(intent, 0);
+
                         }
                     }
                 });
@@ -197,28 +203,13 @@ public class FragmentForMainActivity extends ScrollTabHolderFragment implements 
 
         return page;
     }
+//
+//    @Override
+//    public void adjustScroll(int scrollHeight, int headerTranslationY)
+//    {
+//        mScrollView.setScrollY(headerTranslationY - scrollHeight);
+//    }
 
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-
-
-
-    }
-
-    @Override
-    public void adjustScroll(int scrollHeight, int headerTranslationY)
-    {
-        mScrollView.setScrollY(headerTranslationY - scrollHeight);
-    }
-
-    @Override
-    public void onScrollChanged(ScrollView view, int l, int t, int oldl, int oldt)
-    {
-        if (mScrollTabHolder != null)
-            mScrollTabHolder.onScroll(view, l, t, oldl, oldt, mPosition);
-
-    }
 
     @Override
     public void onAttach(Activity activity) {

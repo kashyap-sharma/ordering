@@ -14,6 +14,7 @@ import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.CheckResult;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -154,7 +155,7 @@ public class LoginActivity extends FragmentActivity {
         sign2 = (LinearLayout) findViewById(R.id.sign2);
         mProgressDialog = new ProgressDialog(this);
         loginButton=(LoginButton)findViewById(R.id.loginButton);
-        mGoogleApiClient = buildGoogleApiClient();
+//        mGoogleApiClient = buildGoogleApiClient();
         callbackManager = CallbackManager.Factory.create();
         pra_test =new Pizza_Objecto();
         pra_test.obj= ((Pizza_Objecto) getIntent().getSerializableExtra("pradata")).obj;
@@ -303,212 +304,212 @@ public class LoginActivity extends FragmentActivity {
     }
 
 
-    private GoogleApiClient buildGoogleApiClient() {
-        // When we build the GoogleApiClient we specify where connected and
-        // connection failed callbacks should be returned, which Google APIs our
-        // app uses and which OAuth 2.0 scopes our app requests.
-        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(new ConnectionCallbacks() {
-                    @Override
-                    public void onConnected(Bundle bundle) {
-                        // Reaching onConnected means we consider the user signed in.
-                        Log.i(TAG, "onConnected");
-
-                        // Update the user interface to reflect that the user is signed in.
-                        sign1.setEnabled(false);
-                        Person currentUser = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
-                        Plus.PeopleApi.loadVisible(mGoogleApiClient, null)
-                                .setResultCallback(new ResultCallback<LoadPeopleResult>() {
-                                    @Override
-                                    public void onResult(LoadPeopleResult loadPeopleResult) {
-                                        if (loadPeopleResult.getStatus().getStatusCode() == CommonStatusCodes.SUCCESS)
-                                        {
-
-                                        } else {
-                                            Log.e(TAG, "Error requesting visible circles: " + loadPeopleResult.getStatus());
-                                        }
-                                    }
-                                });
-
-                        // Indicate that the sign in process is complete.
-                        mSignInProgress = STATE_DEFAULT;
-                        onSignedOut();
-                        if(isNetworkAvailable()&&(!loginviafacebook)&&loginviagmail) {
-
-                            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-                                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.GET_ACCOUNTS);
-                                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
-                                    requestPermissions(new String[] {Manifest.permission.GET_ACCOUNTS},
-                                            10);
-                                    return;
-                                }
-                            }
-                            else{
-                                email=Plus.AccountApi.getAccountName(mGoogleApiClient).toString();
-                                Log.i("email",""+email);
-                            }
-
-                            Intent intent = new Intent(getApplication(), LastPage.class);
-                            intent.putExtra("email", Plus.AccountApi.getAccountName(mGoogleApiClient).toString());
-                            intent.putExtra("fname", currentUser.getName().getGivenName());
-                            intent.putExtra("lname", currentUser.getName().getFamilyName());
-                            intent.putExtra("pradata",pra_test);
-                            startActivity(intent);
-                            finish();
-                        }
-
-
-                        else
-                        {
-                            Toast.makeText(getApplicationContext(), "No Internet Connectivity available", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    @Override
-                    public void onConnectionSuspended(int i) {
-                        // The connection to Google Play services was lost for some reason.
-                        // We call connect() to attempt to re-establish the connection or get a
-                        // ConnectionResult that we can attempt to resolve.
-                        mGoogleApiClient.connect();
-
-                    }
-                })
-                .addOnConnectionFailedListener(new OnConnectionFailedListener() {
-                    @Override
-                    public void onConnectionFailed(ConnectionResult result) {
-// Refer to the javadoc for ConnectionResult to see what error codes might
-                        // be returned in onConnectionFailed.
-                        Log.i(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
-                                + result.getErrorCode());
-
-                        if (result.getErrorCode() == ConnectionResult.API_UNAVAILABLE) {
-                            // An API requested for GoogleApiClient is not available. The device's current
-                            // configuration might not be supported with the requested API or a required component
-                            // may not be installed, such as the Android Wear application. You may need to use a
-                            // second GoogleApiClient to manage the application's optional APIs.
-                            Log.w(TAG, "API Unavailable.");
-                        } else if (mSignInProgress != STATE_IN_PROGRESS) {
-                            // We do not have an intent in progress so we should store the latest
-                            // error resolution intent for use when the sign in button is clicked.
-                            mSignInIntent = result.getResolution();
-                            mSignInError = result.getErrorCode();
-
-                            if (mSignInProgress == STATE_SIGN_IN) {
-                                // STATE_SIGN_IN indicates the user already clicked the sign in button
-                                // so we should continue processing errors until the user is signed in
-                                // or they click cancel.
-                                resolveSignInError();
-                            }
-                        }
-
-                        // In this sample we consider the user signed out whenever they do not have
-                        // a connection to Google Play services.
-                        onSignedOut();
-                    }
-                })
-                .addApi(Plus.API, Plus.PlusOptions.builder().build())
-                .addScope(Plus.SCOPE_PLUS_LOGIN);
-
-        if (mRequestServerAuthCode) {
-            checkServerAuthConfiguration();
-            builder = builder.requestServerAuthCode(WEB_CLIENT_ID, new GoogleApiClient.ServerAuthCodeCallbacks() {
-
-                @Override
-                public CheckResult onCheckServerAuthorization(String idToken, Set<Scope> scopeSet) {
-                    Log.i(TAG, "Checking if server is authorized.");
-                    Log.i(TAG, "Mocking server has refresh token: " + String.valueOf(mServerHasToken));
-
-                    if (!mServerHasToken) {
-                        // Server does not have a valid refresh token, so request a new
-                        // auth code which can be exchanged for one.  This will cause the user to see the
-                        // consent dialog and be prompted to grant offline access. This callback occurs on a
-                        // background thread so it is OK to do synchronous network access.
-
-                        // Ask the server which scopes it would like to have for offline access.  This
-                        // can be distinct from the scopes granted to the client.  By getting these values
-                        // from the server, you can change your server's permissions without needing to
-                        // recompile the client application.
-                        HttpClient httpClient = new DefaultHttpClient();
-                        HttpGet httpGet = new HttpGet(SELECT_SCOPES_URL);
-                        HashSet<Scope> serverScopeSet = new HashSet<Scope>();
-
-                        try {
-                            HttpResponse httpResponse = httpClient.execute(httpGet);
-                            int responseCode = httpResponse.getStatusLine().getStatusCode();
-                            String responseBody = EntityUtils.toString(httpResponse.getEntity());
-
-                            if (responseCode == 200) {
-                                String[] scopeStrings = responseBody.split(" ");
-                                for (String scope : scopeStrings) {
-                                    Log.i(TAG, "Server Scope: " + scope);
-                                    serverScopeSet.add(new Scope(scope));
-                                }
-                            } else {
-                                Log.e(TAG, "Error in getting server scopes: " + responseCode);
-                            }
-
-                        } catch (ClientProtocolException e) {
-                            Log.e(TAG, "Error in getting server scopes.", e);
-                        } catch (IOException e) {
-                            Log.e(TAG, "Error in getting server scopes.", e);
-                        }
-
-                        // This tells GoogleApiClient that the server needs a new serverAuthCode with
-                        // access to the scopes in serverScopeSet.  Note that we are not asking the server
-                        // if it already has such a token because this is a sample application.  In reality,
-                        // you should only do this on the first user sign-in or if the server loses or deletes
-                        // the refresh token.
-                        return CheckResult.newAuthRequiredResult(serverScopeSet);
-                    } else {
-                        // Server already has a valid refresh token with the correct scopes, no need to
-                        // ask the user for offline access again.
-                        return CheckResult.newAuthNotRequiredResult();
-                    }
-                }
-
-                @Override
-                public boolean onUploadServerAuthCode(String idToken, String serverAuthCode) {
-                    // Upload the serverAuthCode to the server, which will attempt to exchange it for
-                    // a refresh token.  This callback occurs on a background thread, so it is OK
-                    // to perform synchronous network access.  Returning 'false' will fail the
-                    // GoogleApiClient.connect() call so if you would like the client to ignore
-                    // server failures, always return true.
-                    HttpClient httpClient = new DefaultHttpClient();
-                    HttpPost httpPost = new HttpPost(EXCHANGE_TOKEN_URL);
-
-                    try {
-                        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
-                        nameValuePairs.add(new BasicNameValuePair("serverAuthCode", serverAuthCode));
-                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-
-                        HttpResponse response = httpClient.execute(httpPost);
-                        int statusCode = response.getStatusLine().getStatusCode();
-                        final String responseBody = EntityUtils.toString(response.getEntity());
-                        Log.i(TAG, "Code: " + statusCode);
-                        Log.i(TAG, "Resp: " + responseBody);
-
-                        // Show Toast on UI Thread
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(LoginActivity.this, responseBody, Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        return (statusCode == 200);
-                    } catch (ClientProtocolException e) {
-                        Log.e(TAG, "Error in auth code exchange.", e);
-                        return false;
-                    } catch (IOException e) {
-                        Log.e(TAG, "Error in auth code exchange.", e);
-                        return false;
-                    }
-                }
-            });
-        }
-
-        return builder.build();
-    }
+//    private GoogleApiClient buildGoogleApiClient() {
+//        // When we build the GoogleApiClient we specify where connected and
+//        // connection failed callbacks should be returned, which Google APIs our
+//        // app uses and which OAuth 2.0 scopes our app requests.
+//        GoogleApiClient.Builder builder = new GoogleApiClient.Builder(this)
+//                .addConnectionCallbacks(new ConnectionCallbacks() {
+//                    @Override
+//                    public void onConnected(Bundle bundle) {
+//                        // Reaching onConnected means we consider the user signed in.
+//                        Log.i(TAG, "onConnected");
+//
+//                        // Update the user interface to reflect that the user is signed in.
+//                        sign1.setEnabled(false);
+//                        Person currentUser = Plus.PeopleApi.getCurrentPerson(mGoogleApiClient);
+//                        Plus.PeopleApi.loadVisible(mGoogleApiClient, null)
+//                                .setResultCallback(new ResultCallback<LoadPeopleResult>() {
+//                                    @Override
+//                                    public void onResult(LoadPeopleResult loadPeopleResult) {
+//                                        if (loadPeopleResult.getStatus().getStatusCode() == CommonStatusCodes.SUCCESS)
+//                                        {
+//
+//                                        } else {
+//                                            Log.e(TAG, "Error requesting visible circles: " + loadPeopleResult.getStatus());
+//                                        }
+//                                    }
+//                                });
+//
+//                        // Indicate that the sign in process is complete.
+//                        mSignInProgress = STATE_DEFAULT;
+//                        onSignedOut();
+//                        if(isNetworkAvailable()&&(!loginviafacebook)&&loginviagmail) {
+//
+//                            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+//
+//                                int hasWriteContactsPermission = checkSelfPermission(Manifest.permission.GET_ACCOUNTS);
+//                                if (hasWriteContactsPermission != PackageManager.PERMISSION_GRANTED) {
+//                                    requestPermissions(new String[] {Manifest.permission.GET_ACCOUNTS},
+//                                            10);
+//                                    return;
+//                                }
+//                            }
+//                            else{
+//                                email=Plus.AccountApi.getAccountName(mGoogleApiClient).toString();
+//                                Log.i("email",""+email);
+//                            }
+//
+//                            Intent intent = new Intent(getApplication(), LastPage.class);
+//                            intent.putExtra("email", Plus.AccountApi.getAccountName(mGoogleApiClient).toString());
+//                            intent.putExtra("fname", currentUser.getName().getGivenName());
+//                            intent.putExtra("lname", currentUser.getName().getFamilyName());
+//                            intent.putExtra("pradata",pra_test);
+//                            startActivity(intent);
+//                            finish();
+//                        }
+//
+//
+//                        else
+//                        {
+//                            Toast.makeText(getApplicationContext(), "No Internet Connectivity available", Toast.LENGTH_SHORT).show();
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onConnectionSuspended(int i) {
+//                        // The connection to Google Play services was lost for some reason.
+//                        // We call connect() to attempt to re-establish the connection or get a
+//                        // ConnectionResult that we can attempt to resolve.
+//                        mGoogleApiClient.connect();
+//
+//                    }
+//                })
+//                .addOnConnectionFailedListener(new OnConnectionFailedListener() {
+//                    @Override
+//                    public void onConnectionFailed(ConnectionResult result) {
+//// Refer to the javadoc for ConnectionResult to see what error codes might
+//                        // be returned in onConnectionFailed.
+//                        Log.i(TAG, "onConnectionFailed: ConnectionResult.getErrorCode() = "
+//                                + result.getErrorCode());
+//
+//                        if (result.getErrorCode() == ConnectionResult.API_UNAVAILABLE) {
+//                            // An API requested for GoogleApiClient is not available. The device's current
+//                            // configuration might not be supported with the requested API or a required component
+//                            // may not be installed, such as the Android Wear application. You may need to use a
+//                            // second GoogleApiClient to manage the application's optional APIs.
+//                            Log.w(TAG, "API Unavailable.");
+//                        } else if (mSignInProgress != STATE_IN_PROGRESS) {
+//                            // We do not have an intent in progress so we should store the latest
+//                            // error resolution intent for use when the sign in button is clicked.
+//                            mSignInIntent = result.getResolution();
+//                            mSignInError = result.getErrorCode();
+//
+//                            if (mSignInProgress == STATE_SIGN_IN) {
+//                                // STATE_SIGN_IN indicates the user already clicked the sign in button
+//                                // so we should continue processing errors until the user is signed in
+//                                // or they click cancel.
+//                                resolveSignInError();
+//                            }
+//                        }
+//
+//                        // In this sample we consider the user signed out whenever they do not have
+//                        // a connection to Google Play services.
+//                        onSignedOut();
+//                    }
+//                })
+//                .addApi(Plus.API, Plus.PlusOptions.builder().build())
+//                .addScope(Plus.SCOPE_PLUS_LOGIN);
+//
+//        if (mRequestServerAuthCode) {
+//            checkServerAuthConfiguration();
+//            builder = builder.requestServerAuthCode(WEB_CLIENT_ID, new GoogleApiClient.ServerAuthCodeCallbacks() {
+//
+//                @Override
+//                public CheckResult onCheckServerAuthorization(String idToken, Set<Scope> scopeSet) {
+//                    Log.i(TAG, "Checking if server is authorized.");
+//                    Log.i(TAG, "Mocking server has refresh token: " + String.valueOf(mServerHasToken));
+//
+//                    if (!mServerHasToken) {
+//                        // Server does not have a valid refresh token, so request a new
+//                        // auth code which can be exchanged for one.  This will cause the user to see the
+//                        // consent dialog and be prompted to grant offline access. This callback occurs on a
+//                        // background thread so it is OK to do synchronous network access.
+//
+//                        // Ask the server which scopes it would like to have for offline access.  This
+//                        // can be distinct from the scopes granted to the client.  By getting these values
+//                        // from the server, you can change your server's permissions without needing to
+//                        // recompile the client application.
+//                        HttpClient httpClient = new DefaultHttpClient();
+//                        HttpGet httpGet = new HttpGet(SELECT_SCOPES_URL);
+//                        HashSet<Scope> serverScopeSet = new HashSet<Scope>();
+//
+//                        try {
+//                            HttpResponse httpResponse = httpClient.execute(httpGet);
+//                            int responseCode = httpResponse.getStatusLine().getStatusCode();
+//                            String responseBody = EntityUtils.toString(httpResponse.getEntity());
+//
+//                            if (responseCode == 200) {
+//                                String[] scopeStrings = responseBody.split(" ");
+//                                for (String scope : scopeStrings) {
+//                                    Log.i(TAG, "Server Scope: " + scope);
+//                                    serverScopeSet.add(new Scope(scope));
+//                                }
+//                            } else {
+//                                Log.e(TAG, "Error in getting server scopes: " + responseCode);
+//                            }
+//
+//                        } catch (ClientProtocolException e) {
+//                            Log.e(TAG, "Error in getting server scopes.", e);
+//                        } catch (IOException e) {
+//                            Log.e(TAG, "Error in getting server scopes.", e);
+//                        }
+//
+//                        // This tells GoogleApiClient that the server needs a new serverAuthCode with
+//                        // access to the scopes in serverScopeSet.  Note that we are not asking the server
+//                        // if it already has such a token because this is a sample application.  In reality,
+//                        // you should only do this on the first user sign-in or if the server loses or deletes
+//                        // the refresh token.
+//                        return CheckResult.newAuthRequiredResult(serverScopeSet);
+//                    } else {
+//                        // Server already has a valid refresh token with the correct scopes, no need to
+//                        // ask the user for offline access again.
+//                        return CheckResult.newAuthNotRequiredResult();
+//                    }
+//                }
+//
+//                @Override
+//                public boolean onUploadServerAuthCode(String idToken, String serverAuthCode) {
+//                    // Upload the serverAuthCode to the server, which will attempt to exchange it for
+//                    // a refresh token.  This callback occurs on a background thread, so it is OK
+//                    // to perform synchronous network access.  Returning 'false' will fail the
+//                    // GoogleApiClient.connect() call so if you would like the client to ignore
+//                    // server failures, always return true.
+//                    HttpClient httpClient = new DefaultHttpClient();
+//                    HttpPost httpPost = new HttpPost(EXCHANGE_TOKEN_URL);
+//
+//                    try {
+//                        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+//                        nameValuePairs.add(new BasicNameValuePair("serverAuthCode", serverAuthCode));
+//                        httpPost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+//
+//                        HttpResponse response = httpClient.execute(httpPost);
+//                        int statusCode = response.getStatusLine().getStatusCode();
+//                        final String responseBody = EntityUtils.toString(response.getEntity());
+//                        Log.i(TAG, "Code: " + statusCode);
+//                        Log.i(TAG, "Resp: " + responseBody);
+//
+//                        // Show Toast on UI Thread
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(LoginActivity.this, responseBody, Toast.LENGTH_LONG).show();
+//                            }
+//                        });
+//                        return (statusCode == 200);
+//                    } catch (ClientProtocolException e) {
+//                        Log.e(TAG, "Error in auth code exchange.", e);
+//                        return false;
+//                    } catch (IOException e) {
+//                        Log.e(TAG, "Error in auth code exchange.", e);
+//                        return false;
+//                    }
+//                }
+//            });
+//        }
+//
+//        return builder.build();
+//    }
 
     @Override
     protected void onStart() {

@@ -32,7 +32,23 @@
 
     <string name="close">Close</string>
 
-    <string name="facebook">&#xe618;</string>
+    <string name="history">&#xf3cd;</string>
+    <string name="current_orders">&#xf207;</string>
+    <string name="address">&#xf3d1;</string>
+    <string name="feedback">&#xf616;</string>
+    <string name="rating">&#xf5c0;</string>
+    <string name="about_us">&#xf3f0;</string>
+    <string name="menu">&#xf44e;</string>
+    <string name="closed">&#xf24c;</string>
+
+
+
+
+
+
+
+
+
 
     <string name="google_plus">&#xe622;</string>
     <string name="title_activity_check_out">CheckOut</string>

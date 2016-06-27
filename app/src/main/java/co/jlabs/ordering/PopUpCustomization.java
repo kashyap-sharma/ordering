@@ -94,7 +94,7 @@ public class PopUpCustomization extends Activity {
                         {
                             if(max<=numselected)
                             {
-                                Toast.makeText(context,"Sorry!!! you can select only "+max+" with this customization.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context,"Sorry!!! you can select only "+max+" with this customization.",Toast.LENGTH_SHORT).show();
                             }
                             else
                             {
@@ -158,7 +158,7 @@ public class PopUpCustomization extends Activity {
                     }
                     if(numselected<min)
                     {
-                        Toast.makeText(context,"Please Select min no. of toppings", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context,"Please Select min no. of toppings",Toast.LENGTH_SHORT).show();
                     }
                     else
                     {
@@ -167,6 +167,7 @@ public class PopUpCustomization extends Activity {
                         i.putExtra("Price", price);
                         //setIntent(i);
                         setResult(100 + array_pos, i);
+
                         finish();
                     }
                 }
@@ -178,13 +179,14 @@ public class PopUpCustomization extends Activity {
                     i.putExtra("Price", price);
                     //  setIntent(i);
                     setResult(100 + array_pos, i);
+
                     finish();
                 }
 
             }
         });
     }
-    public void FlipView(View view, boolean b)
+    public void FlipView(View view,boolean b)
     {
         TextView v= (TextView) view;
         if(b)
@@ -221,5 +223,11 @@ public class PopUpCustomization extends Activity {
 
         }
         return arr;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
     }
 }
