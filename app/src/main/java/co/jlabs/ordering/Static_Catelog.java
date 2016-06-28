@@ -32,6 +32,9 @@ public class Static_Catelog {
             editor.commit();
         }
     }
+
+
+
     public static void log(String s)
     {
         Log.i("Static_Catelog", "" + s);

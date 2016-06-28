@@ -12,7 +12,6 @@
     <string name="user">&#xe648;</string>
 
 
-
     <string name="add">&#xE147;</string>
     <string name="rem">&#xE15C;</string>
     <string name="no_nets">&#xE1DA;</string>
@@ -40,14 +39,8 @@
     <string name="about_us">&#xf3f0;</string>
     <string name="menu">&#xf44e;</string>
     <string name="closed">&#xf24c;</string>
-
-
-
-
-
-
-
-
+    <string name="back">&#xf14a;</string>
+    <string name="rupee">&#xf2a4;</string>
 
 
     <string name="google_plus">&#xe622;</string>
@@ -105,5 +98,8 @@
     <string name="title_activity_about_us">AboutUs</string>
     <string name="title_activity_single_order">SingleOrderActivity</string>
     <string name="title_activity_order_status_last">OrderStatusLast</string>
+    <string name="title_activity_address">Address</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_address_filler">AddressFiller</string>
 
 </resources>

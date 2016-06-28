@@ -1,6 +1,8 @@
 package co.jlabs.ordering;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,6 +17,12 @@ public class OrderApplication extends android.app.Application {
     public int pizza_id;
     private ArrayList<Order_Pizza> pizzas;
     private Order_PizzaBuilder new_pizza;
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
 
 
     public OrderApplication()

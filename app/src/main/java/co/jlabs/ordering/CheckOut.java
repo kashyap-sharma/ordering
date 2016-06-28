@@ -79,7 +79,7 @@ public class CheckOut extends Activity {
                         Pizza_Objecto pra_data = new Pizza_Objecto();
                         pra_data.obj = make_jsonobj(adapter).toString();
                         Intent emailIntent;
-
+                        Static_Catelog.setStringProperty(context,"tota",total_grand.getText().toString());
                         emailIntent = new Intent(CheckOut.this, LoginActivity.class);
 
                         emailIntent.putExtra("pradata", pra_data);
@@ -100,10 +100,11 @@ public class CheckOut extends Activity {
                 public void onClick(View v) {
                     if (Float.parseFloat(total_grand.getText().toString()) > 300) {
                         Pizza_Objecto pra_data = new Pizza_Objecto();
+                        Static_Catelog.setStringProperty(context,"tota",total_grand.getText().toString());
                         pra_data.obj = make_jsonobj(adapter).toString();
                         Intent emailIntent;
 
-                        emailIntent = new Intent(CheckOut.this, LastPage.class);
+                        emailIntent = new Intent(CheckOut.this, AddressFiller.class);
 
                         emailIntent.putExtra("pradata", pra_data);
                         startActivity(emailIntent);
