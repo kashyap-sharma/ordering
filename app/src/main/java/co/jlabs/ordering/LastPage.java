@@ -480,10 +480,6 @@ public class LastPage extends ListActivity {
         @Override
         protected Void doInBackground(String... args) {
             JSONObject obj=JSONfunctions.makenewHttpRequest(context, "http://lannister-api.elasticbeanstalk.com/tyrion/order", object);
-
-
-
-
             try {
                 JSONObject c = obj.getJSONObject("data");
                 Log.i("hipo","hipo"+c);

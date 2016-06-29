@@ -6,8 +6,7 @@
     android:fitsSystemWindows="true">
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
         <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"
             android:background="#f26522"
@@ -20,7 +19,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
-                android:background="#5b000000"
+
 
                 app:layout_scrollFlags="scroll|enterAlways"
                 >
@@ -82,11 +81,10 @@
             </LinearLayout>
 
             <android.support.design.widget.TabLayout
-                android:layout_width="match_parent"
                 android:id="@+id/tabs"
-                android:layout_height="wrap_content">
 
-            </android.support.design.widget.TabLayout>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
 
 
@@ -94,6 +92,7 @@
 
 
         </android.support.design.widget.AppBarLayout>
+
         <android.support.v4.view.ViewPager
             android:id="@+id/container"
             android:layout_below="@+id/appbar"

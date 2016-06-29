@@ -20,18 +20,23 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.jlabs.ordering.fragmentsInitialiser.Image;
 import co.jlabs.ordering.fragmentsInitialiser.Initialiser;
 import co.jlabs.ordering.photoview.MyIconFonts;
 
 
-public class AddressFiller extends AppCompatActivity  implements Initialiser {
-    private ViewPager mViewPager;
-    private String tota;
-    String name,contact,landmark,address;
+public class AddressFiller extends AppCompatActivity implements NewAddress.OnFragmentInteractionListener,SavedAddress.OnFragmentInteractionListener {
+
+    private String tota,hi;
+    String pincode,contact,landmark,address;
     Context context;
     MyIconFonts total;
+    int pos;
     Button place_order;
+    private ArrayList<Image> images;
     int s;
+    private int selectedPosition = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,19 +46,15 @@ public class AddressFiller extends AppCompatActivity  implements Initialiser {
         place_order=(Button)findViewById(R.id.place_order);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager =(ViewPager) findViewById(R.id.container);
         setupViewPager(mViewPager);
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
         tabLayout.setupWithViewPager(mViewPager);
         tota=Static_Catelog.getStringProperty(context,"tota");
         float f = Float.parseFloat(tota);
         animateTextView(0,f,total);
-
-
-
-
-
     }
+
 
     public void animateTextView(float initialValue, float finalValue, final MyIconFonts  textview) {
 
@@ -108,31 +109,60 @@ public class AddressFiller extends AppCompatActivity  implements Initialiser {
     }
 
 
-    @Override
-    public void updateName(int i,String name1,String address1,String contact1, String landmark1) {
-        s=i;
-        name=name1;
-        address=address1;
-        contact=contact1;
-        landmark=landmark1;
-        if (s>=7)
-        {
+//    @Override
+//    public void updateName(int i,String name1,String address1,String contact1, String landmark1) {
+//
+//        s=i;
+//        name=name1;
+//        address=address1;
+//        contact=contact1;
+//        landmark=landmark1;
+//        Log.e("some","activity"+name);
+//        Log.e("some1","activity"+name1);
+//        if (s>=7)
+//        {
+//
+//            place_order.setBackgroundColor(Color.parseColor("#f26522"));
+//            place_order.setTextColor(Color.parseColor("#ffffff"));
+//            place_order.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    Intent emailIntent = new Intent(AddressFiller.this, OrderStatusLast.class);
+//                    startActivity(emailIntent);
+//                }
+//            });
+//        }
+//        else
+//        {
+//            place_order.setBackgroundColor(Color.parseColor("#DCDCDC"));
+//            place_order.setTextColor(Color.parseColor("#adadad"));
+//        }
+//    }
+        @Override
+        public void onFragmentInteraction(int ch,String userContent, String add, String land,String cont) {
+            Log.e("some2",""+ch);
 
-            place_order.setBackgroundColor(Color.parseColor("#f26522"));
-            place_order.setTextColor(Color.parseColor("#ffffff"));
-            place_order.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent emailIntent = new Intent(AddressFiller.this, OrderStatusLast.class);
-                    startActivity(emailIntent);
-                }
-            });
-        }
-        else
-        {
-            place_order.setBackgroundColor(Color.parseColor("#DCDCDC"));
-            place_order.setTextColor(Color.parseColor("#adadad"));
-        }
-    }
 
+            if (ch==123) {
+                place_order.setBackgroundColor(Color.parseColor("#f26522"));
+                place_order.setTextColor(Color.parseColor("#ffffff"));
+                place_order.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent emailIntent = new Intent(AddressFiller.this, OrderStatusLast.class);
+                        startActivity(emailIntent);
+                    }
+                });
+
+            } else {
+                place_order.setBackgroundColor(Color.parseColor("#DCDCDC"));
+                place_order.setTextColor(Color.parseColor("#ADADAD"));
+                place_order.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                       Log.e("data ", "error");
+                    }
+                });
+            }
+        }
 }

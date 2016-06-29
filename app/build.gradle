@@ -58,4 +58,6 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:9.0.2'
     compile 'com.google.android.gms:play-services-gcm:9.0.2'
     compile 'com.android.support:support-v13:24.0.0'
+    compile 'com.andreabaccega:android-form-edittext:1.2.1@aar'
+    compile 'com.android.volley:volley:1.0.0'
 }
