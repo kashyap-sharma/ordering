@@ -1,20 +1,23 @@
 package co.jlabs.ordering.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
+import co.jlabs.ordering.AddressFiller;
 import co.jlabs.ordering.R;
 import co.jlabs.ordering.fragmentsInitialiser.Image;
-
+import co.jlabs.ordering.photoview.MyIconButton;
+import co.jlabs.ordering.photoview.MyIconFonts;
 
 /**
  * Created by Lincoln on 31/03/16.
@@ -23,17 +26,21 @@ import co.jlabs.ordering.fragmentsInitialiser.Image;
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
 
     private List<Image> images;
-    private Context mContext;
+    private Context mContext,con;
+    private OnFragmentInteractionListener mListener;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView pincode,phone,address,area;
+    public class MyViewHolder extends RecyclerView.ViewHolder  {
+        public MyIconFonts pincode,phone,address,area;
+        public MyIconButton edit,remove;
 
         public MyViewHolder(View view) {
             super(view);
-            pincode = (TextView) view.findViewById(R.id.pincode);
-            phone = (TextView) view.findViewById(R.id.contact);
-            address = (TextView) view.findViewById(R.id.address);
-            area = (TextView) view.findViewById(R.id.area);
+            pincode = (MyIconFonts) view.findViewById(R.id.pincode);
+            phone = (MyIconFonts) view.findViewById(R.id.contact);
+            address = (MyIconFonts) view.findViewById(R.id.address);
+            area = (MyIconFonts) view.findViewById(R.id.area);
+            edit =(MyIconButton)view.findViewById(R.id.edit);
+            remove =(MyIconButton)view.findViewById(R.id.remove);
         }
     }
 
@@ -46,21 +53,69 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.gallery_thumbnail, parent, false);
+                .inflate(R.layout.saved_adapter, parent, false);
 
         return new MyViewHolder(itemView);
     }
-
-    @Override
-    public void onBindViewHolder(MyViewHolder holder, int position) {
-        Image image = images.get(position);
-        holder.pincode.setText("Pincode: "+image.getPincode());
-        holder.phone.setText("Contact: "+image.getPhone());
-        holder.area.setText("Area: "+image.getArea());
-        holder.address.setText("Address: "+image.getAddress());
-
+    public interface OnFragmentInteractionListener {
+        public void onFragmentInteraction(int ch, String names, String add,String la, String land);
     }
 
+
+
+    public void removeAt(int position) {
+        images.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, images.size());
+    }
+    @Override
+    public void onBindViewHolder(MyViewHolder holder, final int position) {
+        final Image image = images.get(position);
+        holder.pincode.setText(mContext.getResources().getString(R.string.pincode)+""+image.getPincode());
+        holder.phone.setText(mContext.getResources().getString(R.string.contact)+""+image.getPhone());
+        holder.area.setText(mContext.getResources().getString(R.string.area)+""+image.getArea());
+        holder.address.setText(mContext.getResources().getString(R.string.addresses)+""+image.getAddress());
+        holder.remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                removeAt(position);
+            }
+        });
+        holder.edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String  a=images.get(position).getAddress();
+                String  b=images.get(position).getArea();
+                String  c=images.get(position).getPhone();
+                String  d=images.get(position).getPincode();
+                image.setA(a);
+                onEditPressed(123,a, b, c,d);
+                Intent intent= new Intent(mContext, AddressFiller.class);
+                intent.putExtra("sint",40);
+                intent.putExtra("address",a);
+                intent.putExtra("landmark",b);
+                intent.putExtra("contact",c);
+                intent.putExtra("pincode",d);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                mContext.startActivity(intent);
+                //onEditPressed(123,a, b, c,d);
+
+            }
+        });
+    }
+
+
+
+
+
+
+
+    public void onEditPressed(int ch,String na,String aa,String la,String ca ) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(ch,na, aa, la,ca);
+
+        }
+    }
     @Override
     public int getItemCount() {
         return images.size();

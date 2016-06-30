@@ -3,6 +3,7 @@ package co.jlabs.ordering;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -20,14 +21,16 @@ import com.andreabaccega.widget.FormEditText;
 
 import org.json.JSONObject;
 
+import co.jlabs.ordering.adapter.GalleryAdapter;
 import co.jlabs.ordering.fragmentsInitialiser.Initialiser;
 
 /**
  * Created by JLabs on 06/28/16.
  */
-public class NewAddress  extends Fragment{
+public class NewAddress  extends Fragment implements GalleryAdapter.OnFragmentInteractionListener{
     FormEditText name, address, landmark, contact;
-    Initialiser init;
+    String u,x,y,z;
+    int sint;
 //    Pizza_Objecto pra_test;
 //    Context context;
 //    OrderApplication app;
@@ -43,6 +46,26 @@ public class NewAddress  extends Fragment{
         super.onCreate(savedInstanceState);
     }
 
+    public static NewAddress inits(int val) {
+        NewAddress truitonFrag = new NewAddress();
+        // Supply val input as an argument.
+        Bundle args = new Bundle();
+        args.putInt("val", val);
+        truitonFrag.setArguments(args);
+        return truitonFrag;
+    }
+
+
+    public void setMyData(int sint,String pin,String con,String land,String add) {
+        this.sint = sint;
+        this.u = pin;
+        this.x = con;
+        this.y = land;
+        this.z = add;
+    }
+    public String getMypin() {
+       return u;
+    }
 
 
 
@@ -55,12 +78,21 @@ public class NewAddress  extends Fragment{
          address=(FormEditText)v.findViewById(R.id.address);
          landmark=(FormEditText)v.findViewById(R.id.landmark);
          contact=(FormEditText)v.findViewById(R.id.contact);
+         final Bundle b = getActivity().getIntent().getExtras();
+         int sint = b.getInt("sint");
+         Log.e("Errrrrrrr",""+sint);
+         if (sint==40){
+            name.setText(b.getString("pincode"));
+            address.setText(b.getString("address"));
+            landmark.setText(b.getString("landmark"));
+            contact.setText(b.getString("contact"));
+         }
 
          contact.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length()>9&&s.length()<14) {
+                if (s.length()>9&&s.length()<14&&b.getString("contact").length()>9&&b.getString("contact").length()<14) {
                      check=123;
                    n=name.getText().toString();
                    a=address.getText().toString();
@@ -94,6 +126,18 @@ public class NewAddress  extends Fragment{
     public void onButtonPressed(int ch,String na,String aa,String la,String ca ) {
         if (mListener != null) {
             mListener.onFragmentInteraction(ch,na, aa, la,ca);
+        }
+    }
+
+    @Override
+    public void onFragmentInteraction(int ch,String userContent, String add, String land,String cont) {
+        Log.e("some2",""+ch);
+
+
+        if (ch==123) {
+            Log.e("some2",""+ch);
+        } else {
+            Log.e("some",""+add);
         }
     }
 

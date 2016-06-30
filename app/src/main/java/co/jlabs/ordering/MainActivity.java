@@ -97,7 +97,7 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
             public void onClick(View view) {
 
               //  maina.setEnabled(false);
-
+                menu.setVisibility(View.GONE);
                 Revealator.reveal(theAwesomeView)
                         .from(menu)
                         .withChildsAnimation()
@@ -115,6 +115,7 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
         cross.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                menu.setVisibility(View.VISIBLE);
                 Revealator.unreveal(theAwesomeView)
                         .withEndAction(new Runnable() {
                             @Override

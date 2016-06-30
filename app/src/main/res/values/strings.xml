@@ -41,6 +41,12 @@
     <string name="closed">&#xf24c;</string>
     <string name="back">&#xf14a;</string>
     <string name="rupee">&#xf2a4;</string>
+    <string name="contact">&#xf4e1;</string>
+    <string name="addresses">&#xf440;</string>
+    <string name="area">&#xf444;</string>
+    <string name="pincode">&#xf5de;</string>
+    <string name="delete">&#xf2b5;</string>
+    <string name="edit">&#xf4da;</string>
 
 
     <string name="google_plus">&#xe622;</string>
@@ -57,9 +63,8 @@
 
     <string name="title_activity_envelope">EnvelopeActivity</string>
 
-    <string name="craft_description">You get to choose your own base,</string>
-    <string name="craft_description1">the sauce and then just go crazy with the toppings.</string>
-    <string name="craft_description2">If you ask us, that is how a PIZZA is had!!</string>
+    <string name="craft_description">You get to choose your own base,\nthe sauce and then just go crazy with the toppings.\nIf you ask us, that is how a PIZZA is had!!</string>
+
 
     <string name="facebook_app_name">HelloFBSample</string>
     <string name="cancelled">Cancelled</string>

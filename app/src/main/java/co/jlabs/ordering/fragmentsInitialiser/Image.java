@@ -7,7 +7,7 @@ import java.io.Serializable;
  */
 public class Image implements Serializable{
 
-    private String pincode,phone, address, area;
+    private String pincode,phone, address, area,a;
     public Image() {
     }
     public String getPincode() {
@@ -40,6 +40,13 @@ public class Image implements Serializable{
 
     public void setArea(String area) {
         this.area = area;
+    }
+    public String getA() {
+        return a;
+    }
+
+    public void setA(String a) {
+        this.a = a;
     }
 
 

@@ -14,11 +14,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <com.andreabaccega.widget.FormEditText
-            whatever:testType="personFullName"
+            whatever:testType="numeric"
             whatever:emptyErrorString="Name Can't be empty."
             whatever:testErrorString="Something phisy"
             android:id="@+id/name"
-            android:hint="Full Name"
+            whatever:maxNumber="6"
+            android:hint="Pin Code"
             android:singleLine="true"
             android:padding="5dp"
             android:background="@android:color/transparent"

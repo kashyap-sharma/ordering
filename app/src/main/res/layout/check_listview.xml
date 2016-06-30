@@ -25,7 +25,8 @@
                 android:text="Pizza"
                 android:gravity="center_vertical"
                 android:textColor="#000"
-
+                android:layout_alignParentLeft="true"
+                android:layout_toLeftOf="@+id/add_rem_"
                 android:id="@+id/orderedItem"
                 android:textSize="15sp"
                 android:padding="5dp"

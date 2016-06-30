@@ -182,28 +182,28 @@ public class LoginActivity extends FragmentActivity {
 
 
         // G+
-        sign1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loginviafacebook=false;
-                if(isNetworkAvailable()) {
-                    if (!mGoogleApiClient.isConnecting()) {
-                        showprogressbar();
-                        loginviagmail=true;
-                        switch (v.getId()) {
-                            case R.id.sign1:
-                                mSignInProgress = STATE_SIGN_IN;
-                                mGoogleApiClient.connect();
-                                break;
-                        }
-                    }
-                }
-                else
-                {
-                    Toast.makeText(getApplicationContext(), "Please Check internet connectivity", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        sign1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                loginviafacebook=false;
+//                if(isNetworkAvailable()) {
+//                    if (!mGoogleApiClient.isConnecting()) {
+//                        showprogressbar();
+//                        loginviagmail=true;
+//                        switch (v.getId()) {
+//                            case R.id.sign1:
+//                                mSignInProgress = STATE_SIGN_IN;
+//                                mGoogleApiClient.connect();
+//                                break;
+//                        }
+//                    }
+//                }
+//                else
+//                {
+//                    Toast.makeText(getApplicationContext(), "Please Check internet connectivity", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
 
         if (savedInstanceState != null) {

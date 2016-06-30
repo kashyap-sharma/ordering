@@ -29,6 +29,7 @@ public class AddressFiller extends AppCompatActivity implements NewAddress.OnFra
 
     private String tota,hi;
     String pincode,contact,landmark,address;
+    int sint;
     Context context;
     MyIconFonts total;
     int pos;
@@ -53,6 +54,18 @@ public class AddressFiller extends AppCompatActivity implements NewAddress.OnFra
         tota=Static_Catelog.getStringProperty(context,"tota");
         float f = Float.parseFloat(tota);
         animateTextView(0,f,total);
+        sint=getIntent().getExtras().getInt("sint");
+
+        Log.e("sint",""+sint+getIntent().getExtras().getString("pincode"));
+        if (sint==40){
+            Bundle b=new Bundle();
+            b.putInt("sint",sint);
+            b.putString("pincode",getIntent().getExtras().getString("pincode"));
+            b.putString("contact",getIntent().getExtras().getString("contact"));
+            b.putString("landmark",getIntent().getExtras().getString("landmark"));
+            b.putString("address",getIntent().getExtras().getString("address"));
+        }
+
     }
 
 
