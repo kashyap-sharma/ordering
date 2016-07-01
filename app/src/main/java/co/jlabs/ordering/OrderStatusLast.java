@@ -28,8 +28,7 @@ public class OrderStatusLast extends Activity {
     String status;
 
     Context context;
-    LikeButtonView click;
-    LinearLayout parent, no_net_, hide;
+    LinearLayout parent,  hide;
     JSONObject data = null;
     private static final String TAG_DATA = "data";
     private static final String TAG_STATUS = "status";
@@ -41,8 +40,7 @@ public class OrderStatusLast extends Activity {
         context=this;
         placed = (MaterialFontIcons) findViewById(R.id.placed);
         parent=(LinearLayout)findViewById(R.id.parent);
-        no_net_ = (LinearLayout) findViewById(R.id.no_net_);
-        click = (LikeButtonView) findViewById(R.id.click);
+
         hide = (LinearLayout) findViewById(R.id.hide);
         ready_dispatch = (MaterialFontIcons) findViewById(R.id.ready_dispatch);
         on_way = (MaterialFontIcons) findViewById(R.id.on_way);
@@ -91,7 +89,6 @@ public class OrderStatusLast extends Activity {
                             on_way.setTextColor(Color.parseColor("#4F4F4F"));
                             ready_dispatch.setTextColor(Color.parseColor("#4F4F4F"));
                             delivered.setTextColor(Color.parseColor("#f26522"));
-                            click.performClick();
                             hide.setVisibility(View.GONE);
                             status_current.setText("Your order is delivered to you successfully.");
                         } else {
@@ -107,7 +104,7 @@ public class OrderStatusLast extends Activity {
         } else {
             parent.setVisibility(View.GONE);
             status_current.setVisibility(View.GONE);
-            no_net_.setVisibility(View.VISIBLE);
+
         }
 
     }

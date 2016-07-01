@@ -95,10 +95,12 @@
             android:label="@string/title_activity_order_status_last" />
         <activity
             android:name=".AddressFiller"
+            android:label="@string/title_activity_address_filler"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BillActivity"
             android:theme="@style/AppTheme.NoActionBar"
-            android:label="@string/title_activity_address_filler">
-
-        </activity>
+            android:label="@string/title_activity_bill"></activity>
     </application>
 
 </manifest>

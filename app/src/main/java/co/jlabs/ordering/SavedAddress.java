@@ -36,7 +36,7 @@ import co.jlabs.ordering.fragmentsInitialiser.Initialiser;
  */
 public class SavedAddress  extends Fragment {
     private String TAG = SavedAddress.class.getSimpleName();
-    private static final String endpoint = "http://lannister-api.elasticbeanstalk.com/tyrion/address?vendor_id=1&email=kashyap.sharma@jlabs.co";
+    private static final String endpoint = "http://lannister-api.elasticbeanstalk.com/tyrion/address?vendor_id=1&email=";
     private ArrayList<Image> images;
     private ProgressDialog pDialog;
     private GalleryAdapter mAdapter;
@@ -105,7 +105,8 @@ public class SavedAddress  extends Fragment {
         String tag_json_obj = "json_obj_req";
         pDialog.setMessage("Downloading json...");
         pDialog.show();
-        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, endpoint, null,
+        String email = Static_Catelog.getStringProperty(getContext(), "email");
+        JsonObjectRequest req = new JsonObjectRequest(Request.Method.GET, endpoint+email, null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(final JSONObject response) {

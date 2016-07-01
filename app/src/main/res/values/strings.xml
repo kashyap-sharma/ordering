@@ -106,5 +106,6 @@
     <string name="title_activity_address">Address</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_address_filler">AddressFiller</string>
+    <string name="title_activity_bill">BillActivity</string>
 
 </resources>

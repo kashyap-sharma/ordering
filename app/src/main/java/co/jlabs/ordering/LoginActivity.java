@@ -755,7 +755,7 @@ public class LoginActivity extends FragmentActivity {
 //Sending FB data to last page
 
     private void SendFbData() {
-            Intent intent = new Intent(getApplication(), LastPage.class);
+            Intent intent = new Intent(getApplication(), AddressFiller.class);
             intent.putExtra("email",email);
             intent.putExtra("fname",first_name);
             intent.putExtra("lname", last_name);

@@ -92,7 +92,7 @@ public class NewAddress  extends Fragment implements GalleryAdapter.OnFragmentIn
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if (s.length()>9&&s.length()<14&&b.getString("contact").length()>9&&b.getString("contact").length()<14) {
+                if (s.length()>9&&s.length()<14) {
                      check=123;
                    n=name.getText().toString();
                    a=address.getText().toString();

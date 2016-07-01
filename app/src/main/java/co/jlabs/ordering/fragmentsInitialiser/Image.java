@@ -8,6 +8,7 @@ import java.io.Serializable;
 public class Image implements Serializable{
 
     private String pincode,phone, address, area,a;
+    private Boolean bool;
     public Image() {
     }
     public String getPincode() {
@@ -48,6 +49,15 @@ public class Image implements Serializable{
     public void setA(String a) {
         this.a = a;
     }
+    public Boolean getSuccess() {
+        return bool;
+    }
+
+    public void setSuccess(Boolean a) {
+        this.bool = a;
+    }
+
+
 
 
 }
