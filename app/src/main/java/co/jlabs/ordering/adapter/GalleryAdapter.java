@@ -9,6 +9,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.List;
@@ -24,7 +26,7 @@ import co.jlabs.ordering.photoview.MyIconFonts;
  */
 
 public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHolder> {
-
+    public int mSelectedItem = -1;
     private List<Image> images;
     private Context mContext,con;
     private OnFragmentInteractionListener mListener;
@@ -32,15 +34,19 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     public class MyViewHolder extends RecyclerView.ViewHolder  {
         public MyIconFonts pincode,phone,address,area;
         public MyIconButton edit,remove;
+        public RadioButton mRadio;
+        public RelativeLayout savvy;
 
         public MyViewHolder(View view) {
             super(view);
+            mRadio = (RadioButton) view.findViewById(R.id.radio);
             pincode = (MyIconFonts) view.findViewById(R.id.pincode);
             phone = (MyIconFonts) view.findViewById(R.id.contact);
             address = (MyIconFonts) view.findViewById(R.id.address);
             area = (MyIconFonts) view.findViewById(R.id.area);
             edit =(MyIconButton)view.findViewById(R.id.edit);
             remove =(MyIconButton)view.findViewById(R.id.remove);
+            savvy=(RelativeLayout)view.findViewById(R.id.savvy);
         }
     }
 
@@ -71,6 +77,14 @@ public class GalleryAdapter extends RecyclerView.Adapter<GalleryAdapter.MyViewHo
     @Override
     public void onBindViewHolder(MyViewHolder holder, final int position) {
         final Image image = images.get(position);
+        holder.savvy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+            }
+        });
+        holder.mRadio.setChecked(position == mSelectedItem);
         holder.pincode.setText(mContext.getResources().getString(R.string.pincode)+""+image.getPincode());
         holder.phone.setText(mContext.getResources().getString(R.string.contact)+""+image.getPhone());
         holder.area.setText(mContext.getResources().getString(R.string.area)+""+image.getArea());

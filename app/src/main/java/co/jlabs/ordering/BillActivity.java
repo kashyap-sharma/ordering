@@ -1,5 +1,6 @@
 package co.jlabs.ordering;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.widget.Button;
 import co.jlabs.ordering.photoview.MyIconFonts;
 import co.jlabs.ordering.photoview.MyTextView;
 
+
 public class BillActivity extends AppCompatActivity {
 
     MyTextView pay_mode,order_id,name,address,contact;
@@ -17,12 +19,14 @@ public class BillActivity extends AppCompatActivity {
     Button track;
     String mode,orderID,cus_name,add,num;
     Context context;
-
+    Activity activity;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bill);
         context=this;
+        activity=this;
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         pay_mode=(MyTextView)findViewById(R.id.pay_mode);
