@@ -47,6 +47,8 @@
     <string name="pincode">&#xf5de;</string>
     <string name="delete">&#xf2b5;</string>
     <string name="edit">&#xf4da;</string>
+    <string name="food">&#xf34f;</string>
+    <string name="pizza">&#xf4f8;</string>
 
 
     <string name="google_plus">&#xe622;</string>
@@ -107,5 +109,6 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name="title_activity_address_filler">AddressFiller</string>
     <string name="title_activity_bill">BillActivity</string>
+    <string name="title_activity_main2">Main2Activity</string>
 
 </resources>

@@ -52,10 +52,10 @@ public class BillActivity extends AppCompatActivity {
             pay_mode.setBackgroundColor(Color.parseColor("#079450"));
         }
         order_id.setText(Static_Catelog.getStringProperty(context,"order_number"));
-        name.setText(Static_Catelog.getStringProperty(context,"fname")+" "+Static_Catelog.getStringProperty(context,"fname"));
+        name.setText(Static_Catelog.getStringProperty(context,"fname")+" "+Static_Catelog.getStringProperty(context,"lname"));
         address.setText(add);
         contact.setText(num);
-        total.setText(context.getResources().getString(R.string.rupee)+" "+Static_Catelog.getStringProperty(context,"tota"));
+        total.setText(context.getResources().getString(R.string.rupee)+Static_Catelog.getStringProperty(context,"tota"));
 
     }
 

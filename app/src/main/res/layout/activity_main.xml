@@ -74,10 +74,10 @@
                             android:layout_marginLeft="12dp"
                             android:layout_width="44dp"
                             android:layout_height="44dp" />
-                        <TextView
+                        <co.jlabs.ordering.photoview.MyTextView
                             android:text="Baking Bad"
                             android:layout_alignParentBottom="true"
-                            android:textColor="#FFE07A"
+                            android:textColor="#fff"
                             android:textStyle="bold"
                             android:textSize="20sp"
                             android:gravity="center"
@@ -118,13 +118,13 @@
     <LinearLayout
         android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="48dp"
         android:id="@+id/orders_layout"
         android:orientation="horizontal">
         <RelativeLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
+            android:layout_height="48dp"
             android:layout_alignParentBottom="true"
             android:background="#252525">
 
@@ -133,15 +133,14 @@
                 android:layout_height="70dp"
                 android:id="@+id/cart">
 
-                <co.jlabs.ordering.photoview.MaterialFontIcons
+                <co.jlabs.ordering.photoview.MyIconFonts
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:typeface="serif"
                     android:textColor="#fff"
                     android:textSize="30sp"
                     android:paddingLeft="15dp"
                     android:gravity="center_vertical"
-                    android:text="@string/basket" />
+                    android:text="@string/food" />
                 <TextView
                     android:gravity="center"
                     android:layout_width="20dp"
@@ -188,10 +187,10 @@
                 android:id="@+id/money_foot"
                 />
 
-            <TextView
+            <co.jlabs.ordering.photoview.MyTextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="CHECK OUT >>"
+                android:text="CHECK OUT"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:layout_alignParentRight="true"
@@ -205,16 +204,31 @@
 
         </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
-<include layout="@layout/nav_drawer" />
-<android.support.design.widget.FloatingActionButton
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:layout_width="48dp"
-android:textColor="#fff"
-android:background="@android:color/transparent"
-android:text="@string/menu"
-android:padding="5dp"
-android:id="@+id/menu"
-android:layout_height="48dp"
-    />
+  </RelativeLayout>
+  <include layout="@layout/nav_drawer" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <co.jlabs.ordering.photoview.MyIconFonts
+            android:id="@+id/drawerBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="fitCenter"
+            android:textColor="#fff"
+            android:padding="5dp"
+            android:textSize="35sp"
+            android:text="@string/menu"/>
+
+        <android.support.design.widget.FloatingActionButton
+            android:layout_width="48dp"
+            android:textColor="#fff"
+            android:visibility="gone"
+            app:backgroundTint="#f26522"
+            android:background="@android:color/transparent"
+            android:text="@string/menu"
+            android:padding="5dp"
+            android:id="@+id/menu"
+            android:layout_height="48dp" />
+    </FrameLayout>
+
 </android.support.design.widget.CoordinatorLayout>

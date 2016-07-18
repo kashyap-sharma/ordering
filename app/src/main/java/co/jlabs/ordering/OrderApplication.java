@@ -3,6 +3,7 @@ package co.jlabs.ordering;
 import android.app.Application;
 import android.content.Context;
 
+import android.support.annotation.Nullable;
 import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 
@@ -97,6 +98,14 @@ public class OrderApplication extends android.app.Application {
         return pizzas;
     }
 
+    @Nullable
+    public Order_Pizza getPizzaByidOrType(int id){
+        for( int i=0;i<pizzas.size();i++)
+            if(pizzas.get(i).getItem().getId()==id)
+                return pizzas.get(i);
+        return null;
+    }
+
     public float totalprice(){
         float total_price=0;
         for(int i=0;i<pizzas.size();i++)
@@ -130,4 +139,6 @@ public class OrderApplication extends android.app.Application {
             return myPizza;
         }
     }
+
+
 }

@@ -1,41 +1,76 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F9F9F9"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:fitsSystemWindows="true">
+<RelativeLayout
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:id="@+id/pi"
     tools:context="co.jlabs.ordering.CheckOut">
 
-    <RelativeLayout
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/yoi"
+        android:background="#f26522"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-        android:background="#dedede"
-        android:id="@+id/yoi">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
 
-        <co.jlabs.ordering.photoview.MaterialFontIcons
-            android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-            android:text="@string/icon_back"
-            android:textSize="20sp"
-            android:id="@+id/icon_back"
-            android:padding="10dp"
-            android:textStyle="bold" />
-
-        <co.jlabs.ordering.photoview.MyTextView
-            android:text="My Order"
-            android:textSize="20sp"
-            android:layout_toRightOf="@+id/icon_back"
-            android:paddingLeft="16dp"
-            android:padding="10dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="?attr/actionBarSize"
 
-            />
-    </RelativeLayout>
+
+            app:layout_scrollFlags="scroll|enterAlways"
+            >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#f26522"
+               >
+
+                <co.jlabs.ordering.photoview.MaterialFontIcons
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/icon_back"
+                    android:textColor="#fff"
+                    android:textSize="20sp"
+                    android:id="@+id/icon_back"
+                    android:padding="10dp"
+                    android:textStyle="bold" />
+
+                <co.jlabs.ordering.photoview.MyTextView
+                    android:text="My Order"
+                    android:textSize="20sp"
+                    android:layout_toRightOf="@+id/icon_back"
+                    android:paddingLeft="16dp"
+                    android:padding="10dp"
+                    android:textColor="#fff"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    />
+            </RelativeLayout>
+
+        </android.support.v7.widget.Toolbar>
+
+
+
+
+
+
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
 
 
     <ListView
@@ -48,56 +83,61 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#dedede"
+        android:layout_height="48dp"
+        android:background="#f26522"
+        android:gravity="center_vertical"
         android:layout_alignParentBottom="true">
 
         <TextView
         android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="#c4c4c4"
+            android:background="#f26522"
             android:layout_marginBottom="1dp" />
 
         <co.jlabs.ordering.photoview.MyTextView
             android:layout_width="wrap_content"
-            android:textStyle="bold"
+            android:textColor="#fff"
             android:padding="12dp"
+            android:gravity="center_vertical"
             android:id="@+id/q"
             android:textSize="17sp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
             android:text="Grand Total: ₹" />
 
         <co.jlabs.ordering.photoview.MyTextView
             android:layout_width="wrap_content"
             android:textSize="17sp"
-            android:paddingTop="12dp"
+            android:gravity="center_vertical"
             android:textStyle="bold"
+            android:textColor="#fff"
             android:id="@+id/total_grand"
             android:layout_toRightOf="@+id/q"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="1982" />
 
         <co.jlabs.ordering.Ripple.MaterialRippleLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_height="match_parent"
+
             android:layout_alignParentRight="true"
         app:mrl_rippleOverlay="true">
 
             <co.jlabs.ordering.photoview.MyTextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
                 android:text="Check Out"
                 android:textSize="16sp"
-
+                android:padding="12dp"
+                android:gravity="center_vertical"
                 android:textColor="#fff"
                 android:background="#f26522"
 
         android:id="@+id/login"
-        android:padding="10dp"
+
        />
 
 </co.jlabs.ordering.Ripple.MaterialRippleLayout>
     </RelativeLayout>
 
 </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

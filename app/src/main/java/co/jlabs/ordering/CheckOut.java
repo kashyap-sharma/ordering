@@ -5,6 +5,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -23,7 +25,7 @@ import co.jlabs.ordering.Interface.PriceTotal;
 import co.jlabs.ordering.photoview.MaterialFontIcons;
 import co.jlabs.ordering.photoview.MyTextView;
 
-public class CheckOut extends Activity {
+public class CheckOut extends AppCompatActivity {
     OrderApplication app;
     Context context;
     ArrayList<Order_Pizza> pizzas;
@@ -40,6 +42,8 @@ public class CheckOut extends Activity {
         context=this;
         app = (OrderApplication) context.getApplicationContext();
         setContentView(R.layout.activity_check_out);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         pizzas = new ArrayList<>();
         email=Static_Catelog.getStringProperty(context,"email");
         ListView list = (ListView) findViewById(R.id.list_check);
@@ -125,7 +129,7 @@ public class CheckOut extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_check_out, menu);
+        //getMenuInflater().inflate(R.menu.menu_check_out, menu);
         return true;
     }
 

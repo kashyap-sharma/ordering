@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 
+import com.google.android.gms.vision.text.Line;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,6 +57,7 @@ public class UserHistory  extends ListActivity {
         no_net_ = (LinearLayout) findViewById(R.id.no_net_);
         contactList = new ArrayList<HashMap<String, String>>();
         email=Static_Catelog.getStringProperty(context,"email");
+
 //        ListView lv = getListView();
 //
 //        // Listview on item click listener

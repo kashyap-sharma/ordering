@@ -28,7 +28,7 @@ public class OrderStatusLast extends Activity {
     String status;
 
     Context context;
-    LinearLayout parent,  hide;
+    LinearLayout parent, hide;
     JSONObject data = null;
     private static final String TAG_DATA = "data";
     private static final String TAG_STATUS = "status";

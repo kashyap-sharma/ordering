@@ -13,6 +13,7 @@
     android:layout_height="wrap_content">
     <RadioButton
         android:id="@+id/radio"
+        android:clickable="false"
         android:layout_width="wrap_content"
         android:layout_centerVertical="true"
         android:layout_height="wrap_content"
@@ -20,7 +21,7 @@
     <co.jlabs.ordering.photoview.MyIconFonts
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:clickable="false"
         android:layout_toLeftOf="@+id/edit"
         android:layout_toRightOf="@+id/radio"
         android:id="@+id/contact"
@@ -31,7 +32,7 @@
         android:layout_toRightOf="@+id/radio"
         android:id="@+id/address"
         android:layout_height="wrap_content"
-
+        android:clickable="false"
         android:layout_toLeftOf="@+id/edit"
         android:text="Address: "/>
     <co.jlabs.ordering.photoview.MyIconFonts
@@ -41,7 +42,7 @@
         android:layout_toRightOf="@+id/radio"
         android:layout_toLeftOf="@+id/edit"
         android:layout_height="wrap_content"
-
+        android:clickable="false"
         android:text="Area: "/>
     <co.jlabs.ordering.photoview.MyIconFonts
         android:layout_width="wrap_content"
@@ -49,6 +50,7 @@
         android:layout_toRightOf="@+id/radio"
         android:layout_toLeftOf="@+id/edit"
         android:id="@+id/pincode"
+        android:clickable="false"
         android:layout_below="@+id/area"
         android:text="Pincode: "/>
     <co.jlabs.ordering.photoview.MyIconButton

@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/menu_title"
         android:text="Menu"
+
         android:textStyle="bold"
         android:textColor="#fff"
         android:padding="20dp"/>
@@ -36,6 +37,7 @@
         <LinearLayout
             android:orientation="horizontal"
             android:id="@+id/history"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <co.jlabs.ordering.photoview.MyIconFonts
@@ -53,6 +55,7 @@
                 android:text="Order History"/>
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:orientation="horizontal"
             android:id="@+id/current_orders"
             android:layout_below="@+id/history"
@@ -73,6 +76,7 @@
                 android:text="Current Order"/>
         </LinearLayout>
         <LinearLayout
+            android:visibility="gone"
             android:orientation="horizontal"
             android:id="@+id/addres"
             android:layout_below="@+id/current_orders"
