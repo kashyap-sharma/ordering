@@ -108,6 +108,7 @@
                     android:layout_marginLeft="10dp"
                     android:id="@+id/dashed"
                     android:layout_marginRight="10dp"
+
                     android:layout_below="@+id/sum"
                     android:background="@drawable/bill_dhased"/>
 

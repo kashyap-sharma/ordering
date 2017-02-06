@@ -181,29 +181,29 @@ public class LoginActivity extends FragmentActivity {
         });
 
 
-        // G+
-//        sign1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                loginviafacebook=false;
-//                if(isNetworkAvailable()) {
-//                    if (!mGoogleApiClient.isConnecting()) {
-//                        showprogressbar();
-//                        loginviagmail=true;
-//                        switch (v.getId()) {
-//                            case R.id.sign1:
-//                                mSignInProgress = STATE_SIGN_IN;
-//                                mGoogleApiClient.connect();
-//                                break;
-//                        }
-//                    }
-//                }
-//                else
-//                {
-//                    Toast.makeText(getApplicationContext(), "Please Check internet connectivity", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+       //  G+
+        sign1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loginviafacebook=false;
+                if(isNetworkAvailable()) {
+                    if (!mGoogleApiClient.isConnecting()) {
+                        showprogressbar();
+                        loginviagmail=true;
+                        switch (v.getId()) {
+                            case R.id.sign1:
+                                mSignInProgress = STATE_SIGN_IN;
+                                mGoogleApiClient.connect();
+                                break;
+                        }
+                    }
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(), "Please Check internet connectivity", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
         if (savedInstanceState != null) {
@@ -534,7 +534,11 @@ public class LoginActivity extends FragmentActivity {
             case 10:
                 if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     // Permission Granted
-                    email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+                    try {
+                        email = Plus.AccountApi.getAccountName(mGoogleApiClient);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
 
                 } else {
                     // Permission Denied

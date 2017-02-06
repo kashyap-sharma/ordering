@@ -20,6 +20,7 @@ public class Order_Pizza {
     private int quantity=1;
     private Item item;
     private int type;
+    private int subcat_id=-1;
 
     ArrayList<ArrayList<Integer>> customs;
 
@@ -55,14 +56,12 @@ public class Order_Pizza {
             return id;
         }
         public float getPrice(){
-
             return price;
         }
     }
 
 
     public Size getSize() {
-
         return size;
     }
 
@@ -71,6 +70,11 @@ public class Order_Pizza {
     }
     public float getTotalPrice() {
         return totalPrice;
+    }
+
+    public void setSubcat(int id)
+    {
+        this.subcat_id=id;
     }
 
     public void addToPrice(float price) {

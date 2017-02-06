@@ -19,11 +19,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Pizza"
+               android:layout_alignParentLeft="true"
                 android:textColor="#000"
+                android:layout_toLeftOf="@+id/add_des1"
                 android:id="@+id/item"
                 android:textSize="15sp"
                 android:padding="10dp" />
-
+            <TextView
+                android:id="@+id/subcat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

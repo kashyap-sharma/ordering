@@ -22,7 +22,12 @@ public class Order_PizzaBuilder {
         return this;
     }
 
-
+    public Order_PizzaBuilder withSubcat(int id,Order_Pizza.Item item,int Custom_Size)
+    {
+        pizza.setSubcat(id);
+        pizza.setItem(item, Custom_Size);
+        return this;
+    }
 
     public Order_PizzaBuilder withSize(Order_Pizza.Size size) {
         if(pizza.getSize()==null)

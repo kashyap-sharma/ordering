@@ -111,14 +111,14 @@ public class AddressFiller extends AppCompatActivity implements NewAddress.OnFra
 
 
         Log.e("sint",""+sint+getIntent().getExtras().getString("pincode"));
-        if (sint==40){
-            Bundle b=new Bundle();
-            b.putInt("sint",sint);
-            b.putString("pincode",getIntent().getExtras().getString("pincode"));
-            b.putString("contact",getIntent().getExtras().getString("contact"));
-            b.putString("landmark",getIntent().getExtras().getString("landmark"));
-            b.putString("address",getIntent().getExtras().getString("address"));
-        }
+//        if (sint==40){
+//            Bundle b=new Bundle();
+//            b.putInt("sint",sint);
+//            b.putString("pincode",getIntent().getExtras().getString("pincode"));
+//            b.putString("contact",getIntent().getExtras().getString("contact"));
+//            b.putString("landmark",getIntent().getExtras().getString("landmark"));
+//            b.putString("address",getIntent().getExtras().getString("address"));
+//        }
 
     }
 

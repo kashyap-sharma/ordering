@@ -19,6 +19,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -48,7 +50,7 @@ import co.jlabs.ordering.photoview.MyTextView;
 import co.jlabs.ordering.revealtor.Revealator;
 
 
-public class MainActivity extends ParallaxViewPagerBaseActivity {
+public class MainActivity extends ParallaxViewPagerBaseActivity implements Animation.AnimationListener{
 
     private View mTopImage;
     MyIconFonts drawerBtn;
@@ -79,7 +81,7 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
     FloatingActionButton menu;
     private View theAwesomeView;
     private static AccelerateDecelerateInterpolator sSmoothInterpolator = new AccelerateDecelerateInterpolator();
-
+    Animation animation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,7 +91,9 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setContentView(R.layout.activity_main);
         context=this;
-
+           animation= AnimationUtils.loadAnimation(getApplicationContext(),
+                R.anim.shake);
+        animation.setAnimationListener(this);
         drawerBtn=(MyIconFonts)findViewById(R.id.drawerBtn);
         final  View  maina=findViewById(R.id.maina);
         initValues();
@@ -111,6 +115,7 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
                 menu.performClick();
             }
         });
+
         menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -127,6 +132,7 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
                         .withRevealDuration(100)
                         //.withEndAction(...)
                         .start();
+                aboutus.setAnimation(animation);
                 maina.setClickable(false);
                 backpress=0;
             }
@@ -522,5 +528,32 @@ public class MainActivity extends ParallaxViewPagerBaseActivity {
                 });
         // Showing Alert Message
         alertDialog.show();
+    }
+
+
+
+
+    @Override
+    public void onAnimationEnd(Animation animations) {
+        // Take any action after completing the animation
+
+        // check for fade in animation
+        if (animations == animation) {
+            Toast.makeText(getApplicationContext(), "Animation Stopped",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+    }
+
+    @Override
+    public void onAnimationRepeat(Animation animation) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void onAnimationStart(Animation animation) {
+        // TODO Auto-generated method stub
+
     }
 }

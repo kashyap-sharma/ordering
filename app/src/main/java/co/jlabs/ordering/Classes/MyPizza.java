@@ -16,7 +16,6 @@ public class MyPizza {
     public int version;
 
 
-    public Menu_Signature menu_signature;
 
     public ArrayList<Menu_Signature> type_of_pizza;
 
@@ -38,6 +37,8 @@ public class MyPizza {
         } catch (JSONException e) {
             Log.i("Myapp", "Mypizza 2");
         }
+
+        Menu_Signature menu_signature;
 
         for (int i=0;i<jsonArray.length();i++)
         {

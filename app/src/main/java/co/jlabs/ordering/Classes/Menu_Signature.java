@@ -15,8 +15,39 @@ import java.util.List;
 public class Menu_Signature {
     public List<Items> items;
     public int id;
+    public List<Subcat> subcats;
     public String category;
 
+    public class Subcat
+    {
+        public List<Items> items;
+        public int id;
+        public String subcat;
+        Subcat(JSONObject jsonObject)
+        {
+            try {
+                id=jsonObject.getInt("id");
+                subcat=jsonObject.getString("subcat");
+                items = new ArrayList<>();
+                JSONArray jsonArray = new JSONArray();
+                jsonArray=jsonObject.getJSONArray("items");
+                Items item;
+                for(int i=0;i<jsonArray.length();i++)
+                {
+                    try {
+                        item=new Items((JSONObject)jsonArray.get(i));
+                        items.add(item);
+                    } catch (Exception e) {
+                        Log.i("Myapp", "Menu_signature Inside");
+                        e.printStackTrace();
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+        }
+    }
 
     public class Option
     {
@@ -226,6 +257,40 @@ public class Menu_Signature {
         }
     }
     Menu_Signature(JSONObject jsonObject)
+    {
+        if(jsonObject.has("subcats"))
+        {
+            try {
+                subcats = new ArrayList<>();
+                id = jsonObject.getInt("id");
+                category= jsonObject.getString("category");
+                JSONArray jsonArray = new JSONArray();
+                jsonArray=jsonObject.getJSONArray("subcats");
+                Subcat subcat;
+                for(int i=0;i<jsonArray.length();i++)
+                {
+                    try {
+                        subcat = new Subcat((JSONObject) jsonArray.get(i));
+                        subcats.add(subcat);
+                    } catch (Exception e) {
+                        Log.i("Myapp", "Menu_signature Inside");
+                        e.printStackTrace();
+                    }
+                }
+            }
+            catch (JSONException e)
+            {
+
+            }
+        }
+        else
+        {
+            initializeItems(jsonObject);
+        }
+
+    }
+
+    private void initializeItems(JSONObject jsonObject)
     {
         items = new ArrayList<>();
         try{
